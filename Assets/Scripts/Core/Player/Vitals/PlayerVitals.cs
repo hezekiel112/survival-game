@@ -1,3 +1,4 @@
+using System;
 using System.Collections;
 using UnityEngine;
 
@@ -28,8 +29,10 @@ public class PlayerVitals : MonoBehaviour
         
     public IEnumerator DecreaseThirstOverTime() {
         do {
-            if (Thirst.CanDecrease())
+            if (Thirst.CanDecrease()) {
                 Thirst.Value -= Thirst.Thirst.OverrideValue;
+                Thirst.OnDecrease().Invoke();
+            }
 
             PlayerHUD.OnThirstVitalValueHasChanged.Invoke(Thirst);
 
@@ -40,8 +43,10 @@ public class PlayerVitals : MonoBehaviour
 
     public IEnumerator DecreaseHungerOverTime() {
         do {
-            if (Hunger.CanDecrease())
+            if (Hunger.CanDecrease()) {
                 Hunger.Value -= Hunger.Hunger.OverrideValue;
+                Hunger.OnDecrease().Invoke();
+            }
 
             PlayerHUD.OnHungerVitalValueHasChanged.Invoke(Hunger);
 

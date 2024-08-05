@@ -10,6 +10,14 @@ public class PlayerHunger : Vital {
         set => _value = value;
     }
 
+    public override WhenDecrease OnDecrease() {
+        return () => Debug.Log("Hunger decreased.");
+    }
+
+    public override WhenIncrease OnIncrease() {
+        return () => Debug.Log("Hunger increased.");
+    }
+
     public override bool CanDecrease() {
         return _value > 0;
     }

@@ -2,6 +2,13 @@
 /// This script handle the Vital feature of the player such as, hunger, thirst or health
 /// </summary>
 public abstract class Vital {
+
+    public delegate void WhenDecrease();
+    public abstract WhenDecrease OnDecrease();
+
+    public delegate void WhenIncrease();
+    public abstract WhenIncrease OnIncrease();
+
     /// <summary>
     /// Return true if the selected vital is decreasing over time. wheareas the health should not
     /// </summary>
@@ -11,7 +18,7 @@ public abstract class Vital {
     }
 
     /// <summary>
-    /// Return true if the selected vital is decreasing over time. wheareas the health should not
+    /// Return true if the selected vital is increasing over time. wheareas the health should not
     /// </summary>
     /// <returns></returns>
     public virtual bool CanIncrease() {
