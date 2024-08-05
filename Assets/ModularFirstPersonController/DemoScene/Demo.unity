@@ -8939,7 +8939,55 @@ MonoBehaviour:
   - _slotID: 3
     _item: {fileID: 0}
     _stack: 0
-  _playerInventoryCells: {fileID: 1675830184}
+  InventorySlots:
+  - _slotID: 0
+    _item: {fileID: 0}
+    _stack: 0
+  - _slotID: 1
+    _item: {fileID: 0}
+    _stack: 0
+  - _slotID: 2
+    _item: {fileID: 0}
+    _stack: 0
+  - _slotID: 3
+    _item: {fileID: 0}
+    _stack: 0
+  - _slotID: 4
+    _item: {fileID: 0}
+    _stack: 0
+  - _slotID: 5
+    _item: {fileID: 0}
+    _stack: 0
+  - _slotID: 6
+    _item: {fileID: 0}
+    _stack: 0
+  - _slotID: 7
+    _item: {fileID: 0}
+    _stack: 0
+  - _slotID: 8
+    _item: {fileID: 0}
+    _stack: 0
+  - _slotID: 9
+    _item: {fileID: 0}
+    _stack: 0
+  - _slotID: 10
+    _item: {fileID: 0}
+    _stack: 0
+  - _slotID: 11
+    _item: {fileID: 0}
+    _stack: 0
+  - _slotID: 12
+    _item: {fileID: 0}
+    _stack: 0
+  - _slotID: 13
+    _item: {fileID: 0}
+    _stack: 0
+  - _slotID: 14
+    _item: {fileID: 0}
+    _stack: 0
+  - _slotID: 15
+    _item: {fileID: 0}
+    _stack: 0
 --- !u!114 &1391758781
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -10255,7 +10303,6 @@ GameObject:
   m_Component:
   - component: {fileID: 1675830182}
   - component: {fileID: 1675830183}
-  - component: {fileID: 1675830184}
   m_Layer: 5
   m_Name: Inventory Cells
   m_TagString: Untagged
@@ -10322,67 +10369,6 @@ MonoBehaviour:
   m_Spacing: {x: 20, y: 20}
   m_Constraint: 1
   m_ConstraintCount: 4
---- !u!114 &1675830184
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1675830181}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 518d477c92401954fa6ccab5d98e5f95, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  _inventorySlots:
-  - _slotID: 0
-    _item: {fileID: 0}
-    _stack: 0
-  - _slotID: 1
-    _item: {fileID: 0}
-    _stack: 0
-  - _slotID: 2
-    _item: {fileID: 0}
-    _stack: 0
-  - _slotID: 3
-    _item: {fileID: 0}
-    _stack: 0
-  - _slotID: 4
-    _item: {fileID: 0}
-    _stack: 0
-  - _slotID: 5
-    _item: {fileID: 0}
-    _stack: 0
-  - _slotID: 6
-    _item: {fileID: 0}
-    _stack: 0
-  - _slotID: 7
-    _item: {fileID: 0}
-    _stack: 0
-  - _slotID: 8
-    _item: {fileID: 0}
-    _stack: 0
-  - _slotID: 9
-    _item: {fileID: 0}
-    _stack: 0
-  - _slotID: 10
-    _item: {fileID: 0}
-    _stack: 0
-  - _slotID: 11
-    _item: {fileID: 0}
-    _stack: 0
-  - _slotID: 12
-    _item: {fileID: 0}
-    _stack: 0
-  - _slotID: 13
-    _item: {fileID: 0}
-    _stack: 0
-  - _slotID: 14
-    _item: {fileID: 0}
-    _stack: 0
-  - _slotID: 15
-    _item: {fileID: 0}
-    _stack: 0
 --- !u!1 &1677901923
 GameObject:
   m_ObjectHideFlags: 0

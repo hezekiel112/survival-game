@@ -4,15 +4,13 @@ using UnityEngine;
 
 public class PlayerInventory : MonoBehaviour, IPlayerInventory
 {
-    public PlayerItemCollection Items = new();
-
     [SerializeField] PlayerVitals _playerVitals;
 
     [Header("Hotbar :")]
     public ItemSlot[] SlotBarSlots;
 
-
-    [SerializeField] PlayerInventoryCellsUpdater _playerInventoryCells;
+    [Header("Inventory :")]
+    public ItemSlot[] InventorySlots;
 
     readonly KeyCode[] _hotBarKeys = {
             KeyCode.Alpha1,
@@ -56,7 +54,7 @@ public class PlayerInventory : MonoBehaviour, IPlayerInventory
     /// <param name="slot"></param>
     /// <returns></returns>
     public bool GetSlotWithItem(PlayerItem item, out ItemSlot slot) {
-        slot = _playerInventoryCells.InventorySlots.Where(x => x.Item == item.Item && x.Stack < item.Item.MaxStackSize).FirstOrDefault();
+        slot = InventorySlots.Where(x => x.Item == item.Item && x.Stack < item.Item.MaxStackSize).FirstOrDefault();
         return slot is not null;
     }
 
@@ -65,9 +63,9 @@ public class PlayerInventory : MonoBehaviour, IPlayerInventory
     /// </summary>
     /// <returns></returns>
     public ItemSlot FindFirstFreeSlot() {
-        for (int i = 0; i < _playerInventoryCells.InventorySlots.Length; i++) {
-            if (!_playerInventoryCells.InventorySlots[i].HasItem())
-                return _playerInventoryCells.InventorySlots[i];
+        for (int i = 0; i < InventorySlots.Length; i++) {
+            if (!InventorySlots[i].HasItem())
+                return InventorySlots[i];
         }
 
         return null;
