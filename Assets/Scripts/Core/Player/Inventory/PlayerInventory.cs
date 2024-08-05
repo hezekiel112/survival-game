@@ -12,12 +12,12 @@ public class PlayerInventory : MonoBehaviour, IPlayerInventory
     [Header("Inventory :")]
     public ItemSlot[] InventorySlots;
 
-    readonly KeyCode[] _hotBarKeys = {
+    /*readonly KeyCode[] _hotBarKeys = {
             KeyCode.Alpha1,
             KeyCode.Alpha2,
             KeyCode.Alpha3,
             KeyCode.Alpha4,
-        };
+    };*/
 
     /*    private void Update() {
             for (int i = 0; i < _hotBarKeys.Length; i++) {

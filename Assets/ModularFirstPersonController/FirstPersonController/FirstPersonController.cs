@@ -198,8 +198,6 @@ public class FirstPersonController : MonoBehaviour
         #endregion
     }
 
-    float camRotation;
-
     private void Update()
     {
         #region Camera
@@ -448,7 +446,7 @@ public class FirstPersonController : MonoBehaviour
         Vector3 direction = transform.TransformDirection(Vector3.down);
         float distance = .75f;
 
-        if (Physics.Raycast(origin, direction, out RaycastHit hit, distance))
+        if (Physics.Raycast(origin, direction, distance))
         {
             Debug.DrawRay(origin, direction * distance, Color.red);
             isGrounded = true;
@@ -535,6 +533,9 @@ public class FirstPersonController : MonoBehaviour
     [CustomEditor(typeof(FirstPersonController)), InitializeOnLoadAttribute]
     public class FirstPersonControllerEditor : Editor
     {
+    static FirstPersonControllerEditor() {
+    }
+
     FirstPersonController fpc;
     SerializedObject SerFPC;
 

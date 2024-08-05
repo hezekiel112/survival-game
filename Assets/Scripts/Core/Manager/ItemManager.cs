@@ -8,7 +8,7 @@ using UnityEngine;
 public sealed class ItemManager : MonoBehaviour {
     public ItemDatabase ItemDatabase;
 
-    Dictionary<int, PlayerItem> _items = new();
+    readonly Dictionary<int, PlayerItem> _items = new();
 
     public ReadOnlyDictionary<int, PlayerItem> Items;
     
