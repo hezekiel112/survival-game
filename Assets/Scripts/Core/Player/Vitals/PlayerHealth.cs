@@ -6,6 +6,9 @@ public class PlayerHealth : Vital {
     public ScriptableVital Health;
     [SerializeField] float _value;
 
+    public override void OverrideVitalBy(Action modifier) {
+        modifier.Invoke();
+    }
     public override WhenDecrease OnDecrease() {
         return () => Debug.Log("Health decreased.");
     }

@@ -1,4 +1,6 @@
-﻿/// <summary>
+﻿using System;
+
+/// <summary>
 /// This script handle the Vital feature of the player such as, hunger, thirst or health
 /// </summary>
 public abstract class Vital {
@@ -8,6 +10,8 @@ public abstract class Vital {
 
     public delegate void WhenIncrease();
     public abstract WhenIncrease OnIncrease();
+
+    public abstract void OverrideVitalBy(Action modifier);
 
     /// <summary>
     /// Return true if the selected vital is decreasing over time. wheareas the health should not

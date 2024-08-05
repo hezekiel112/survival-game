@@ -5,9 +5,14 @@ using UnityEngine;
 public class PlayerThirst : Vital {
     public ScriptableVital Thirst;
     [SerializeField] float _value;
+
     public float Value {
         get => _value;
         set => _value = value;
+    }
+
+    public override void OverrideVitalBy(Action modifier) {
+        modifier.Invoke();
     }
 
     public override WhenDecrease OnDecrease() {

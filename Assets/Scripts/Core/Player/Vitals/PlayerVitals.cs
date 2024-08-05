@@ -30,7 +30,7 @@ public class PlayerVitals : MonoBehaviour
     public IEnumerator DecreaseThirstOverTime() {
         do {
             if (Thirst.CanDecrease()) {
-                Thirst.Value -= Thirst.Thirst.OverrideValue;
+                Thirst.OverrideVitalBy(() => { Thirst.Value -= Thirst.Thirst.OverrideValue; });
                 Thirst.OnDecrease().Invoke();
             }
 
@@ -44,7 +44,7 @@ public class PlayerVitals : MonoBehaviour
     public IEnumerator DecreaseHungerOverTime() {
         do {
             if (Hunger.CanDecrease()) {
-                Hunger.Value -= Hunger.Hunger.OverrideValue;
+                Hunger.OverrideVitalBy(() => { Hunger.Value -= Hunger.Hunger.OverrideValue; });
                 Hunger.OnDecrease().Invoke();
             }
 

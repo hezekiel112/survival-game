@@ -10,6 +10,10 @@ public class PlayerHunger : Vital {
         set => _value = value;
     }
 
+    public override void OverrideVitalBy(Action modifier) {
+        modifier.Invoke();
+    }
+
     public override WhenDecrease OnDecrease() {
         return () => Debug.Log("Hunger decreased.");
     }
