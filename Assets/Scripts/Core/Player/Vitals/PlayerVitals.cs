@@ -10,7 +10,7 @@ public class PlayerVitals : MonoBehaviour
 
     public bool IsDead => Health.Value <= 0;
 
-    WaitForSeconds[] _waitTimers = {
+    readonly WaitForSeconds[] _waitTimers = {
         new(3f), // 35,50
         new(5f),
     };

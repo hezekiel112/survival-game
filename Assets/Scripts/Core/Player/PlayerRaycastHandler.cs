@@ -22,34 +22,38 @@ public class PlayerRaycastHandler : MonoBehaviour
     public delegate bool WhenRaycastEnter(out Transform rayHit);
     public static WhenRaycastEnter OnRaycastEnter;
 
-
     [SerializeField] LayerMask _maskHit;
+    readonly RaycastHit[] hits = new RaycastHit[1];
 
     private void FixedUpdate() {
-        if (Physics.Raycast(transform.position, transform.TransformDirection(Vector3.forward), out RaycastHit hit, 15, _maskHit)) {
+        if (Physics.RaycastNonAlloc(transform.position, transform.TransformDirection(Vector3.forward), hits, 15, _maskHit) > 0) {
+            RaycastHit hit = hits[0];
+
+            if (Input.GetKeyDown(KeyCode.F))
+                OnKeyDownPressF?.Invoke(hit.transform);
+
+            if (Input.GetKey(KeyCode.F))
+                OnKeyPressF?.Invoke(hit.transform);
+
             OnRaycastEnter += (out Transform rayHit) => {
                 rayHit = hit.transform;
                 return true;
             };
-        } else {
+        } 
+        else {
             OnRaycastEnter = null;
             OnRaycastEnter += (out Transform hit) => {
                 hit = null;
                 return false;
             };
+
             return;
         }
-
-        if (Input.GetKeyDown(KeyCode.F))
-            OnKeyDownPressF.Invoke(hit.transform);
-
-        if (Input.GetKey(KeyCode.F))
-            OnKeyPressF.Invoke(hit.transform);
     }
 
     private void Update() {
         if (!Input.GetKey(KeyCode.F)) {
-            OnKeyReleaseF.Invoke();
+            OnKeyReleaseF?.Invoke();
         }
     }
 }
