@@ -58,16 +58,15 @@ public class PlayerInventory : MonoBehaviour, IPlayerInventory
         return slot is not null;
     }
 
+
+    public bool GetSlotWithItem(PlayerItem item) {
+        return InventorySlots.Where(x => x.Item == item.Item && x.Stack < item.Item.MaxStackSize).Any();
+    }
     /// <summary>
     /// Return the first free ItemSlot found from the slots inside the inventory of the player
     /// </summary>
     /// <returns></returns>
     public ItemSlot FindFirstFreeSlot() {
-        for (int i = 0; i < InventorySlots.Length; i++) {
-            if (!InventorySlots[i].HasItem())
-                return InventorySlots[i];
-        }
-
-        return null;
+        return InventorySlots.Where(x => x.Item == null).FirstOrDefault();
     }
 }

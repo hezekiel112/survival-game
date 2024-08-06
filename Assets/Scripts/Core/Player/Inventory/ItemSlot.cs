@@ -27,7 +27,7 @@ public class ItemSlot {
         _stack++;
         _item = item.Item;
 
-        PlayerHUD.OnItemAdded(SlotID, _stack);
+        PlayerHUD.OnItemAdded.Invoke(SlotID, _stack);
         return true;
     }
 
@@ -39,7 +39,7 @@ public class ItemSlot {
         _stack = 0;
         _item = null;
 
-        PlayerHUD.OnItemAdded(SlotID, _stack);
+        PlayerHUD.OnItemAdded.Invoke(SlotID, _stack);
         return true;
     }
 }

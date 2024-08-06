@@ -29,12 +29,6 @@ public class PlayerRaycastHandler : MonoBehaviour
         if (Physics.RaycastNonAlloc(transform.position, transform.TransformDirection(Vector3.forward), hits, 15, _maskHit) > 0) {
             RaycastHit hit = hits[0];
 
-            if (Input.GetKeyDown(KeyCode.F))
-                OnKeyDownPressF?.Invoke(hit.transform);
-
-            if (Input.GetKey(KeyCode.F))
-                OnKeyPressF?.Invoke(hit.transform);
-
             OnRaycastEnter += (out Transform rayHit) => {
                 rayHit = hit.transform;
                 return true;
@@ -54,6 +48,17 @@ public class PlayerRaycastHandler : MonoBehaviour
     private void Update() {
         if (!Input.GetKey(KeyCode.F)) {
             OnKeyReleaseF?.Invoke();
+        }
+
+
+        if (Input.GetKeyDown(KeyCode.F)) {
+            OnKeyDownPressF?.Invoke(hits[0].transform);
+
+            return;
+        }
+
+        if (Input.GetKey(KeyCode.F)) {
+            OnKeyPressF?.Invoke(hits[0].transform);
         }
     }
 }

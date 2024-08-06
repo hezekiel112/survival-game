@@ -36,31 +36,26 @@ public class PlayerObjectTakeSystem : MonoBehaviour
     void PickupItem(Transform t) {
         if (t.CompareTag("Item")) {
             if (ItemManager.Instance.TryGetItemByGameObject(t.gameObject, out PlayerItem item)) {
+                if (!item.Item.CanBeStacked) {
+                    _playerInventory.FindFirstFreeSlot().AddItemToSlot(item);
+                    return;
+                }
 
-                // check si un slot contient cet item
                 if (item.Item.CanBeStacked) {
-                    if (_playerInventory.GetSlotWithItem(item, out ItemSlot slot)) {
-                        if (slot.Stack >= item.Item.MaxStackSize) {
-                            _playerInventory.FindFirstFreeSlot().AddItemToSlot(item);
-                        }
+                    bool hasFindSlot = _playerInventory.GetSlotWithItem(item, out var slot);
+                    
+                    if (hasFindSlot) {
+                        Debug.Log("hasFind");
+                        slot.AddItemToSlot(item);
+                    }
 
-                        slot.Stack++;
+                    if (!hasFindSlot) {
 
-                        PlayerHUD.OnItemAdded(slot.SlotID, slot.Stack);
-#if !UNITY_EDITOR
-                        item.gameObject.SetActive(false);
-#endif
-                    } 
-                    else {
+                        Debug.Log("hasNotFind");
                         _playerInventory.FindFirstFreeSlot().AddItemToSlot(item);
                     }
-                }
-                
-                if (!item.Item.CanBeStacked) {
-#if !UNITY_EDITOR
-                        item.gameObject.SetActive(false);
-#endif
-                    _playerInventory.FindFirstFreeSlot().AddItemToSlot(item);
+
+                    return;
                 }
             }
         }
