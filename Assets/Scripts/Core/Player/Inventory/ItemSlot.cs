@@ -18,7 +18,7 @@ public class ItemSlot {
     [SerializeField] int _stack;
 
     public bool HasItem() {
-        return _item != null;
+        return GetItem() != null;
     }
 
     public bool AddItemToSlot(PlayerItem item) {

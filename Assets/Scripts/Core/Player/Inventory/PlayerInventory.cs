@@ -54,19 +54,39 @@ public class PlayerInventory : MonoBehaviour, IPlayerInventory
     /// <param name="slot"></param>
     /// <returns></returns>
     public bool GetSlotWithItem(PlayerItem item, out ItemSlot slot) {
-        slot = InventorySlots.Where(x => x.Item == item.Item && x.Stack < item.Item.MaxStackSize).FirstOrDefault();
-        return slot is not null;
+        for (int i = 0; i < InventorySlots.Length; i++) {
+            if (InventorySlots[i].Stack < item.Item.MaxStackSize) {
+                if (InventorySlots[i].HasItem() && InventorySlots[i].GetItem().ItemID == item.Item.ItemID) {
+                    slot = InventorySlots[i];
+                    return true;
+                }
+            }
+        }
+
+        slot = null;
+        return false;
     }
 
 
     public bool GetSlotWithItem(PlayerItem item) {
-        return InventorySlots.Where(x => x.Item == item.Item && x.Stack < item.Item.MaxStackSize).Any();
+        for (int i = 0; i < InventorySlots.Length; i++) {
+            if (InventorySlots[i].Stack < item.Item.MaxStackSize) {
+                return InventorySlots[i].GetItem().ItemID == item.Item.ItemID;
+            }
+        }
+
+        return false;
     }
     /// <summary>
     /// Return the first free ItemSlot found from the slots inside the inventory of the player
     /// </summary>
     /// <returns></returns>
     public ItemSlot FindFirstFreeSlot() {
-        return InventorySlots.Where(x => x.Item == null).FirstOrDefault();
+        for (int i = 0; i < InventorySlots.Length; i++) {
+            if (!InventorySlots[i].HasItem())
+                return InventorySlots[i];
+        }
+
+        return null;
     }
 }
