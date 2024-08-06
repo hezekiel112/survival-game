@@ -42,16 +42,16 @@ public class PlayerObjectTakeSystem : MonoBehaviour
                     if (_playerInventory.GetSlotWithItem(item, out ItemSlot slot)) {
                         if (slot.Stack >= item.Item.MaxStackSize) {
                             _playerInventory.FindFirstFreeSlot().AddItemToSlot(item);
-                            return;
                         }
-                        
+
                         slot.Stack++;
 
                         PlayerHUD.OnItemAdded(slot.SlotID, slot.Stack);
 #if !UNITY_EDITOR
                         item.gameObject.SetActive(false);
 #endif
-                    } else {
+                    } 
+                    else {
                         _playerInventory.FindFirstFreeSlot().AddItemToSlot(item);
                     }
                 }
@@ -62,14 +62,14 @@ public class PlayerObjectTakeSystem : MonoBehaviour
 #endif
                     _playerInventory.FindFirstFreeSlot().AddItemToSlot(item);
                 }
-
-                return;
             }
         }
     }
 
     void TakeObject(Transform t) {
-        if (t.CompareTag("Pickable") && t.transform.TryGetComponent<Rigidbody>(out Rigidbody rb)) {
+        if (t.CompareTag("Pickable")) {
+            Rigidbody rb = t.GetComponent<Rigidbody>();
+
             _objectToTakeRb = rb;
             t.position = _takePoint.position;
             _objectToTakeRb.isKinematic = true;
