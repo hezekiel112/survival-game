@@ -23,15 +23,15 @@ public sealed class ItemManager : MonoBehaviour {
     }
 
         private void Start() {
-        for (int i = 0; i < ItemDatabase.Items.Length; i++) {
-            if (ItemDatabase.Items[i].TryGetComponent<PlayerItem>(out PlayerItem item)) {
-                _items.Add(i, item);
+            foreach(var item in ItemDatabase.Items) {
+                if (item.TryGetComponent<PlayerItem>(out PlayerItem playerItem)) {
+                    _items.Add(playerItem.Item.ItemID, playerItem);
+                }
             }
-        }
 
         Items = new ReadOnlyDictionary<int, PlayerItem>(_items);
-        Debug.Log(Items.Count);
-    }
+        Debug.Log(Items[0].Item.ItemName);
+        }
 
     public PlayerItem GetItem(int id) {
         return Items[id];

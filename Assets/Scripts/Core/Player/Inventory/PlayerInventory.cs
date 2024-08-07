@@ -12,12 +12,21 @@ public class PlayerInventory : MonoBehaviour, IPlayerInventory
     [Header("Inventory :")]
     public ItemSlot[] InventorySlots;
 
+    public static PlayerInventory Instance {
+        get; set;
+    }
+
     /*readonly KeyCode[] _hotBarKeys = {
             KeyCode.Alpha1,
             KeyCode.Alpha2,
             KeyCode.Alpha3,
             KeyCode.Alpha4,
     };*/
+
+    private void Start() {
+        Destroy(Instance);
+        Instance = this;
+    }
 
     /*    private void Update() {
             for (int i = 0; i < _hotBarKeys.Length; i++) {
@@ -35,15 +44,17 @@ public class PlayerInventory : MonoBehaviour, IPlayerInventory
     public void UseItemFromSlot(ItemSlot slot) {
         PlayerItem itemFromSlot = ItemManager.Instance.GetItem(slot.Item.ItemID);
 
+        Debug.Log(slot.GetItem().ItemName);
+
         if ((slot.Stack - 1) == 0) {
             itemFromSlot.UseItem(_playerVitals);
             slot.RemoveItemFromSlot();
             return;
         }
 
-        slot.Stack--;
+        slot.Stack -= 1;
         itemFromSlot.UseItem(_playerVitals);
-       
+
         PlayerHUD.OnItemAdded(slot.SlotID, slot.Stack);
     }
 
@@ -66,7 +77,6 @@ public class PlayerInventory : MonoBehaviour, IPlayerInventory
         slot = null;
         return false;
     }
-
 
     public bool GetSlotWithItem(PlayerItem item) {
         for (int i = 0; i < InventorySlots.Length; i++) {
