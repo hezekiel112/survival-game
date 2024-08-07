@@ -5,7 +5,7 @@ using UnityEngine.UI;
 
 public class PlayerHUD : MonoBehaviour
 {
-    [SerializeField] TextMeshProUGUI _itemDisplay;
+    [SerializeField] TextMeshProUGUI _itemDisplay, _itemPickupDisplay;
     [SerializeField] TextMeshProUGUI _healthValue, _hungerValue, _thirstValue;
 
     [Header("Inventory HUD :")]
@@ -18,7 +18,7 @@ public class PlayerHUD : MonoBehaviour
     [SerializeField] Image[] _slotBarItemIcons;
     [SerializeField] TextMeshProUGUI[] _slotBarStackSizeTexts;
 
-    public delegate void WhenDisplayEnter(string text);
+    public delegate void WhenDisplayEnter(string text, PlayerItem pickedUpItem = null, int count = 0);
     public static WhenDisplayEnter OnDisplayEnter;
 
     public delegate void WhenHungerVitalValueChange(Vital vital);
@@ -42,6 +42,8 @@ public class PlayerHUD : MonoBehaviour
     readonly StringBuilder 
         _hungerValueTextSB = new(),
         _thirstValueTextSB = new(),
+        _itemDisplaySB = new(),
+        _itemPickupDisplaySB = new(),
         _healthValueTextSB = new();
 
     readonly StringBuilder[] _inventoryCells_SBTextStack = new StringBuilder[20] {
@@ -86,11 +88,10 @@ public class PlayerHUD : MonoBehaviour
         OnHealthVitalValueHasChanged += UpdateHealthVitalValueText;
 
         OnItemPickup += UpdateInventoryItemIcon;
+        OnItemAdded += UpdateInventoryItemStackSize;
         OnItemUsed += UpdateInventoryItemIcon;
 
         OnDisplayEnter += DisplayText;
-
-        OnItemAdded += UpdateInventoryItemStackSize;
     }
 
     private void Update() {
@@ -154,7 +155,21 @@ public class PlayerHUD : MonoBehaviour
     /// display text on the hud
     /// </summary>
     /// <param name="text"></param>
-    void DisplayText(string text) {
-        _itemDisplay.text = text;
+    public void DisplayText(string text, PlayerItem itemPickup = null, int count = 0) {
+        if (itemPickup == null) {
+            Debug.Log("no item pickup");
+            _itemPickupDisplaySB.Clear();
+            _itemDisplaySB.Clear();
+
+            _itemDisplaySB.Append(text);
+
+            _itemDisplay.text = _itemDisplaySB.ToString();
+            _itemPickupDisplay.text = _itemPickupDisplaySB.ToString();
+            return;
+        }
+
+        _itemPickupDisplaySB.Clear();
+        _itemPickupDisplaySB.Append($"picked up {itemPickup.Item.ItemName} x{count}");
+        _itemPickupDisplay.text = _itemPickupDisplaySB.ToString();
     }
 }

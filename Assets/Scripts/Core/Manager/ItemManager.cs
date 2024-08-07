@@ -22,8 +22,19 @@ public sealed class ItemManager : MonoBehaviour {
         Instance = this;
     }
 
+        private void Start() {
+        for (int i = 0; i < ItemDatabase.Items.Length; i++) {
+            if (ItemDatabase.Items[i].TryGetComponent<PlayerItem>(out PlayerItem item)) {
+                _items.Add(i, item);
+            }
+        }
+
+        Items = new ReadOnlyDictionary<int, PlayerItem>(_items);
+        Debug.Log(Items.Count);
+    }
+
     public PlayerItem GetItem(int id) {
-        return _items[id];
+        return Items[id];
     }
 
     public bool TryGetItemByGameObject(GameObject go, out PlayerItem item) {
@@ -41,16 +52,5 @@ public sealed class ItemManager : MonoBehaviour {
             item = null;
 
         return hasGotItem;
-    }
-
-    private void Start() {
-        for (int i = 0; i < ItemDatabase.Items.Length; i++) {
-            if (ItemDatabase.Items[i].TryGetComponent<PlayerItem>(out PlayerItem item)) {
-                _items.Add(i, item);
-            }
-        }
-
-        Items = new ReadOnlyDictionary<int, PlayerItem>(_items);
-        Debug.Log(Items.Count);
     }
 }

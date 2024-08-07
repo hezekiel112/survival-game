@@ -1,3 +1,4 @@
+using System.Collections;
 using UnityEngine;
 
 /// <summary>
@@ -24,8 +25,10 @@ public class PlayerObjectTakeSystem : MonoBehaviour
     void Update() {
         if (PlayerRaycastHandler.OnRaycastEnter(out Transform hit)) {
             PlayerHUD.OnDisplayEnter($"Press F to pickup <color=green><b>{hit.name}</b></color>");
-        } else
+        } else {
             DisableHUDText();
+            return;
+        }
 
         if (_objectToTakeRb != null) {
             DisableHUDText();
@@ -33,11 +36,17 @@ public class PlayerObjectTakeSystem : MonoBehaviour
         }
     }
 
+    IEnumerator DisplayPickedUpItemHUD(PlayerItem item, int count) {
+        PlayerHUD.OnDisplayEnter("string.Empty", item, 500);
+        yield return new WaitForSeconds(.25f);
+    }
+
     void PickupItem(Transform t) {
         if (t.CompareTag("Item")) {
             if (ItemManager.Instance.TryGetItemByGameObject(t.gameObject, out PlayerItem item)) {
                 if (!item.Item.CanBeStacked) {
                     _playerInventory.FindFirstFreeSlot().AddItemToSlot(item);
+                    StartCoroutine(DisplayPickedUpItemHUD(item, 1));
                     return;
                 }
 
@@ -47,12 +56,14 @@ public class PlayerObjectTakeSystem : MonoBehaviour
                     if (hasFindSlot) {
                         Debug.Log("hasFind");
                         slot.AddItemToSlot(item);
+                        StartCoroutine(DisplayPickedUpItemHUD(item, 1));
                     }
 
                     if (!hasFindSlot) {
 
                         Debug.Log("hasNotFind");
                         _playerInventory.FindFirstFreeSlot().AddItemToSlot(item);
+                        StartCoroutine(DisplayPickedUpItemHUD(item, 1));
                     }
 
                     return;
