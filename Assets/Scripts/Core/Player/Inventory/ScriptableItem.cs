@@ -11,11 +11,13 @@ public class ScriptableItem : ScriptableObject {
     [SerializeField] float _bonus;
     [SerializeField] EItemType _itemType;
     [Space]
+    [SerializeField] int _defaultStackSize;
     [SerializeField] bool _canBeStacked;
     [SerializeField] int _maxStackSize;
     [Space]
     [SerializeField] int _itemID;
 
+    public int DefaultStackSize => _defaultStackSize;
     public int ItemID => _itemID;
     public string ItemName => _itemName;
     public string ItemDescription => _itemDescription;

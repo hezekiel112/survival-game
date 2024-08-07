@@ -44,7 +44,7 @@ public class PlayerObjectTakeSystem : MonoBehaviour
 
                     if (slot != null) {
                         slot.AddItemToSlot(item);
-                        StartCoroutine(PlayerHUD.OnDisplayEnter(pickedUpItem: item, count: 1));
+                        StartCoroutine(PlayerHUD.OnDisplayEnter(pickedUpItem: item, count: item.Item.DefaultStackSize));
                     }
                     else {
                         StartCoroutine(PlayerHUD.OnDisplayEnter("inventory is full !", true));
@@ -58,14 +58,14 @@ public class PlayerObjectTakeSystem : MonoBehaviour
                     
                     if (slot  != null) {
                         slot.AddItemToSlot(item);
-                        StartCoroutine(PlayerHUD.OnDisplayEnter(pickedUpItem: item, count: 1));
+                        StartCoroutine(PlayerHUD.OnDisplayEnter(pickedUpItem: item, count: item.Item.DefaultStackSize));
                     }
                     else {
                         ItemSlot newFreeSlot = _playerInventory.FindFirstFreeSlot();
                         
                         if (newFreeSlot != null) {
                             newFreeSlot.AddItemToSlot(item);
-                            StartCoroutine(PlayerHUD.OnDisplayEnter(pickedUpItem: item, count: 1));
+                            StartCoroutine(PlayerHUD.OnDisplayEnter(pickedUpItem: item, count: item.Item.DefaultStackSize));
                         }
                         else
                             StartCoroutine(PlayerHUD.OnDisplayEnter("inventory is full !", true));

@@ -24,7 +24,8 @@ public class ItemSlot {
     public bool AddItemToSlot(PlayerItem item) {
         PlayerHUD.OnItemPickup.Invoke(SlotID, item.Item.ItemIcon);
 
-        _stack++;
+        _stack += item.Item.DefaultStackSize;
+
         _item = item.Item;
 
         PlayerHUD.OnItemAdded.Invoke(SlotID, _stack);
