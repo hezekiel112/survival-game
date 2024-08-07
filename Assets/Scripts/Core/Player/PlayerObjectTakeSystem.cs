@@ -19,12 +19,12 @@ public class PlayerObjectTakeSystem : MonoBehaviour
     }
 
     void DisableHUDText() {
-        PlayerHUD.OnDisplayEnter(string.Empty);
+        StartCoroutine(PlayerHUD.OnDisplayEnter(string.Empty));
     }
 
     void Update() {
         if (PlayerRaycastHandler.OnRaycastEnter(out Transform hit)) {
-            PlayerHUD.OnDisplayEnter($"Press F to pickup <color=green><b>{hit.name}</b></color>");
+            StartCoroutine(PlayerHUD.OnDisplayEnter($"Press F to pickup <color=green><b>{hit.name}</b></color>"));
         } else {
             DisableHUDText();
             return;
@@ -36,34 +36,39 @@ public class PlayerObjectTakeSystem : MonoBehaviour
         }
     }
 
-    IEnumerator DisplayPickedUpItemHUD(PlayerItem item, int count) {
-        PlayerHUD.OnDisplayEnter("string.Empty", item, 500);
-        yield return new WaitForSeconds(.25f);
-    }
-
     void PickupItem(Transform t) {
         if (t.CompareTag("Item")) {
             if (ItemManager.Instance.TryGetItemByGameObject(t.gameObject, out PlayerItem item)) {
                 if (!item.Item.CanBeStacked) {
-                    _playerInventory.FindFirstFreeSlot().AddItemToSlot(item);
-                    StartCoroutine(DisplayPickedUpItemHUD(item, 1));
+                    ItemSlot slot = _playerInventory.FindFirstFreeSlot();
+
+                    if (slot != null) {
+                        slot.AddItemToSlot(item);
+                        StartCoroutine(PlayerHUD.OnDisplayEnter(pickedUpItem: item, count: 1));
+                    }
+                    else {
+                        StartCoroutine(PlayerHUD.OnDisplayEnter("inventory is full !", true));
+                    }
+                    
                     return;
                 }
 
                 if (item.Item.CanBeStacked) {
-                    bool hasFindSlot = _playerInventory.GetSlotWithItem(item, out var slot);
+                    _playerInventory.GetSlotWithItem(item, out ItemSlot slot);
                     
-                    if (hasFindSlot) {
-                        Debug.Log("hasFind");
+                    if (slot  != null) {
                         slot.AddItemToSlot(item);
-                        StartCoroutine(DisplayPickedUpItemHUD(item, 1));
+                        StartCoroutine(PlayerHUD.OnDisplayEnter(pickedUpItem: item, count: 1));
                     }
-
-                    if (!hasFindSlot) {
-
-                        Debug.Log("hasNotFind");
-                        _playerInventory.FindFirstFreeSlot().AddItemToSlot(item);
-                        StartCoroutine(DisplayPickedUpItemHUD(item, 1));
+                    else {
+                        ItemSlot newFreeSlot = _playerInventory.FindFirstFreeSlot();
+                        
+                        if (newFreeSlot != null) {
+                            newFreeSlot.AddItemToSlot(item);
+                            StartCoroutine(PlayerHUD.OnDisplayEnter(pickedUpItem: item, count: 1));
+                        }
+                        else
+                            StartCoroutine(PlayerHUD.OnDisplayEnter("inventory is full !", true));
                     }
 
                     return;
