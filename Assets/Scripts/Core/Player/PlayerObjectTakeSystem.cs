@@ -23,7 +23,7 @@ public class PlayerObjectTakeSystem : MonoBehaviour
     }
 
     void Update() {
-        if (PlayerRaycastHandler.OnRaycastEnter(out Transform hit)) {
+        if (!Cursor.visible && PlayerRaycastHandler.OnRaycastEnter(out Transform hit)) {
             StartCoroutine(PlayerHUD.OnDisplayEnter($"Press F to pickup <color=green><b>{hit.name}</b></color>"));
         } else {
             DisableHUDText();

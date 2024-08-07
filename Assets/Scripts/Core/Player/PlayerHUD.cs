@@ -93,6 +93,8 @@ public class PlayerHUD : MonoBehaviour
         OnItemUsed += UpdateInventoryItemIcon;
 
         OnDisplayEnter += DisplayText;
+
+        Cursor.visible = false;
     }
 
     private void Update() {
@@ -102,6 +104,7 @@ public class PlayerHUD : MonoBehaviour
 
     public void InventoryOpenClose() {
         _inventoryObject.SetActive(!_inventoryObject.activeSelf);
+        Cursor.visible = _inventoryObject.activeSelf ? true : false;
     }
 
     public void UpdateInventoryItemStackSize(int slotID, int stackSize) {

@@ -46,15 +46,15 @@ public class PlayerRaycastHandler : MonoBehaviour
     }
 
     private void Update() {
-        if (Input.GetKey(KeyCode.F)) {
+        if (!Cursor.visible && Input.GetKey(KeyCode.F)) {
             OnKeyPressF?.Invoke(hits[0].transform);
         }
 
-        if (!Input.GetKey(KeyCode.F)) {
+        if (!Cursor.visible && Input.GetKey(KeyCode.F)) {
             OnKeyReleaseF?.Invoke();
         }
 
-        if (Input.GetKeyDown(KeyCode.F)) {
+        if (!Cursor.visible && Input.GetKeyDown(KeyCode.F)) {
             OnKeyDownPressF?.Invoke(hits[0].transform);
 
             return;
