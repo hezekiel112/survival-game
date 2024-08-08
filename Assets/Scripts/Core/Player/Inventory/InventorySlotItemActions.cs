@@ -46,7 +46,7 @@ public class InventorySlotItemActions : MonoBehaviour, IPointerEnterHandler, IPo
         _itemTooltipGO.SetActive(true);
 
         _itemTooltipSB.Clear();
-        _itemTooltipSB.Append($"{_itemSlot.GetItem().ItemName} +{_itemSlot.GetItem().Bonus}\n{_itemSlot.Item.ItemDescription}");
+        _itemTooltipSB.Append($"{_itemSlot.GetItem().ItemName} +{_itemSlot.GetItem().Bonus}{_itemSlot.GetItem().GetItemType()}\n{_itemSlot.Item.ItemDescription}");
         _itemTooltip.text = _itemTooltipSB.ToString();
     }
 

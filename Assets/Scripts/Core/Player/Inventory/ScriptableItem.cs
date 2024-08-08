@@ -1,4 +1,5 @@
 ﻿using UnityEngine;
+using static UnityEditor.Progress;
 
 /// <summary>
 /// This script handle the PlayerItem item data
@@ -27,4 +28,17 @@ public class ScriptableItem : ScriptableObject {
     
     public bool CanBeStacked => _canBeStacked;
     public int MaxStackSize => _maxStackSize;
+
+    public string GetItemType() {
+        switch (ItemType) {
+            case EItemType.NutrimentHunger:
+                return "Hunger";
+            case EItemType.NutrimentThirst:
+                return "Thirst";
+            case EItemType.NutrimentHealth:
+                return "Health";
+        }
+
+        return string.Empty;
+    }
 }
