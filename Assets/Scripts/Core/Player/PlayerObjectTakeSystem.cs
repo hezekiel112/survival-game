@@ -19,7 +19,7 @@ public class PlayerObjectTakeSystem : MonoBehaviour
     }
 
     void DisableHUDText() {
-        StartCoroutine(PlayerHUD.OnDisplayEnter(string.Empty));
+        StartCoroutine(PlayerHUD.OnDisplayEnter(""));
     }
 
     void Update() {
@@ -27,12 +27,10 @@ public class PlayerObjectTakeSystem : MonoBehaviour
             StartCoroutine(PlayerHUD.OnDisplayEnter($"Press F to pickup <color=green><b>{hit.name}</b></color>"));
         } else {
             DisableHUDText();
-            return;
         }
 
         if (_objectToTakeRb != null) {
             DisableHUDText();
-            return;
         }
     }
 
