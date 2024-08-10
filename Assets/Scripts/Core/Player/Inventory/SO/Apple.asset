@@ -18,6 +18,6 @@ MonoBehaviour:
   _bonus: 12
   _itemType: 2
   _defaultStackSize: 2
-  _canBeStacked: 1
+  _canBeStacked: 0
   _maxStackSize: 10
   _itemID: 0
