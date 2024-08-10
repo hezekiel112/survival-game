@@ -19,41 +19,37 @@ public class InventorySlotItemActions : MonoBehaviour, IPointerEnterHandler, IPo
     readonly StringBuilder _itemTooltipSB = new();
 
     private void Start() {
-        _useItemButton.onClick.RemoveAllListeners();
-
         _itemTooltipGO.SetActive(false);
 
         _useItemButton.onClick.AddListener(() => {
             PlayerInventory.Instance.UseItemFromSlot(_itemSlot);
         });
+    }
 
-        _showActionPannel.onClick.AddListener(() => {
-            _itemSlot = PlayerInventory.Instance.InventorySlots.Where(x => x.SlotID == _slotID).FirstOrDefault();
-            ShowOrHidePannel();
-        });
+    void DisplayTooltip(string text) {
+        _itemTooltipSB.Clear();
+        _itemTooltipSB.Append(text);
+        _itemTooltip.text = _itemTooltipSB.ToString();
     }
 
     public void ShowOrHidePannel() {
-        if (PlayerInventory.Instance.InventorySlots[_slotID].HasItem()) {
+        if (_itemSlot.HasItem()) {
             _itemActionsPannel.SetActive(!_itemActionsPannel.activeSelf);
         }
     }
 
     public void OnPointerEnter(PointerEventData eventData) {
+        _itemSlot = PlayerInventory.Instance.InventorySlots.Where(x => x.SlotID == _slotID).FirstOrDefault();
+
         if (!_itemSlot.HasItem())
             return;
-        
+
         _itemTooltipGO.SetActive(true);
 
-        _itemTooltipSB.Clear();
-        _itemTooltipSB.Append($"{_itemSlot.GetItem().ItemName} +{_itemSlot.GetItem().Bonus} {_itemSlot.GetItem().GetItemType()}\n{_itemSlot.Item.ItemDescription}");
-        _itemTooltip.text = _itemTooltipSB.ToString();
+        DisplayTooltip($"{_itemSlot.GetItem().ItemName} +{_itemSlot.GetItem().Bonus} {_itemSlot.GetItem().GetItemType()}\n{_itemSlot.Item.ItemDescription}");
     }
 
     public void OnPointerExit(PointerEventData eventData) {
-        if (!_itemSlot.HasItem())
-            return;
-
         _itemTooltipGO.SetActive(false);
     }
 }

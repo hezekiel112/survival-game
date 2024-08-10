@@ -42,7 +42,7 @@ public class PlayerInventory : MonoBehaviour, IPlayerInventory
         }*/
 
     public void UseItemFromSlot(ItemSlot slot) {
-        PlayerItem itemFromSlot = ItemManager.Instance.GetItem(slot.Item.ItemID);
+        IPlayerItem itemFromSlot = ItemManager.Instance.GetItem(slot.Item.ItemID);
 
         Debug.Log(slot.GetItem().ItemName);
 
@@ -64,7 +64,7 @@ public class PlayerInventory : MonoBehaviour, IPlayerInventory
     /// <param name="item"></param>
     /// <param name="slot"></param>
     /// <returns></returns>
-    public bool GetSlotWithItem(PlayerItem item, out ItemSlot slot) {
+    public bool GetSlotWithItem(IPlayerItem item, out ItemSlot slot) {
         for (int i = 0; i < InventorySlots.Length; i++) {
             if (InventorySlots[i].Stack < item.Item.MaxStackSize) {
                 if (InventorySlots[i].HasItem() && InventorySlots[i].GetItem().ItemID == item.Item.ItemID) {
@@ -78,7 +78,7 @@ public class PlayerInventory : MonoBehaviour, IPlayerInventory
         return false;
     }
 
-    public bool GetSlotWithItem(PlayerItem item) {
+    public bool GetSlotWithItem(IPlayerItem item) {
         for (int i = 0; i < InventorySlots.Length; i++) {
             if (InventorySlots[i].Stack < item.Item.MaxStackSize) {
                 return InventorySlots[i].GetItem().ItemID == item.Item.ItemID;

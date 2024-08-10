@@ -8,9 +8,9 @@ using UnityEngine;
 public sealed class ItemManager : MonoBehaviour {
     public ItemDatabase ItemDatabase;
 
-    readonly Dictionary<int, PlayerItem> _items = new();
+    readonly Dictionary<int, IPlayerItem> _items = new();
 
-    public ReadOnlyDictionary<int, PlayerItem> Items;
+    public ReadOnlyDictionary<int, IPlayerItem> Items;
     
     public static ItemManager Instance { get; private set; }
 
@@ -29,12 +29,12 @@ public sealed class ItemManager : MonoBehaviour {
                 }
             }
 
-        Items = new ReadOnlyDictionary<int, PlayerItem>(_items);
+        Items = new ReadOnlyDictionary<int, IPlayerItem>(_items);
         Debug.Log(Items[0].Item.ItemName);
         }
 
     public PlayerItem GetItem(int id) {
-        return Items[id];
+        return Items[id] as PlayerItem;
     }
 
     public bool TryGetItemByGameObject(GameObject go, out PlayerItem item) {
@@ -45,8 +45,8 @@ public sealed class ItemManager : MonoBehaviour {
 
         bool hasGotItem = Items.ContainsKey(id);
 
-        if (hasGotItem) 
-            item = Items[id];
+        if (hasGotItem)
+            item = Items[id] as PlayerItem;
 
         else
             item = null;
