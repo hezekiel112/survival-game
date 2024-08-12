@@ -5,7 +5,7 @@ using UnityEngine;
 using UnityEngine.EventSystems;
 using UnityEngine.UI;
 
-public class InventorySlotItemActions : MonoBehaviour, IPointerEnterHandler, IPointerExitHandler {
+public class InventorySlotItemActions : MonoBehaviour, IPointerEnterHandler, IPointerExitHandler, IBeginDragHandler, IDragHandler, IEndDragHandler {
     [SerializeField] int _slotID;
     [SerializeField] ItemSlot _itemSlot = null;
     [SerializeField] GameObject _itemTooltipGO;
@@ -17,6 +17,8 @@ public class InventorySlotItemActions : MonoBehaviour, IPointerEnterHandler, IPo
     [SerializeField] GameObject _itemActionsPannel;
 
     readonly StringBuilder _itemTooltipSB = new();
+
+    bool _isDragging;
 
     private void Start() {
         _itemTooltipGO.SetActive(false);
@@ -48,18 +50,66 @@ public class InventorySlotItemActions : MonoBehaviour, IPointerEnterHandler, IPo
     }
 
     public void OnPointerEnter(PointerEventData eventData) {
-        _itemSlot = PlayerInventory.Instance.InventorySlots.Where(x => x.SlotID == _slotID).FirstOrDefault();
+        _itemSlot = PlayerInventory.Instance.FindInventorySlotWithID(_slotID);
 
         if (!_itemSlot.HasItem()) {
             return;
         }
         else {
-            DisplayTooltip($"{_itemSlot.GetItem().ItemName} +{_itemSlot.GetItem().Bonus} {_itemSlot.GetItem().GetItemType()}\n{_itemSlot.Item.ItemDescription}");
+            if (!_isDragging) {
+                DisplayTooltip($"{_itemSlot.GetItem().ItemName} +{_itemSlot.GetItem().Bonus} {_itemSlot.GetItem().FormatItemType()}\n{_itemSlot.Item.ItemDescription}");
+            }
         }
     }
 
     public void OnPointerExit(PointerEventData eventData) {
         _itemTooltipGO.SetActive(false);
         _itemActionsPannel.SetActive(false);
+    }
+
+    Sprite itemIcon = null;
+
+    public void OnBeginDrag(PointerEventData eventData) {
+        if (!_itemSlot.HasItem())
+            return;
+
+        _isDragging = eventData.dragging;
+
+        itemIcon = _itemSlot.Item.GetItemIcon();
+
+        GameObject tempItemObject = new("temp item icon");
+
+        tempItemObject.transform.SetParent(transform.root);
+
+        Image tempItemObjectImage = tempItemObject.AddComponent<Image>().GetComponent<Image>();
+
+        tempItemObjectImage.sprite = itemIcon;
+        tempItemObjectImage.rectTransform.sizeDelta = new Vector2(60, 60);
+        tempItemObjectImage.raycastTarget = false;
+
+        // disable tooltip and stack count
+        this._itemTooltip.transform.parent.gameObject.SetActive(false);
+        this.transform.GetChild(0).Find("Inventory Slot Item Stack").gameObject.SetActive(false);
+    }
+
+    public void OnDrag(PointerEventData eventData) {
+        if (!_itemSlot.HasItem())
+            return;
+
+        transform.root.Find("temp item icon").position = Input.mousePosition;
+    }
+
+    public void OnEndDrag(PointerEventData eventData) {
+        if (PlayerInventory.Instance.InventorySlotsCollection.TryGetValue(eventData.pointerCurrentRaycast.gameObject.transform.parent.gameObject, out var slot)) {
+            PlayerInventory.Instance.SwapSlot(ref _itemSlot, slot.SlotID);
+        }
+
+        Destroy(transform.root.Find("temp item icon").gameObject);
+
+        this._itemTooltip.transform.parent.gameObject.SetActive(true);
+        this.transform.GetChild(0).Find("Inventory Slot Item Stack").gameObject.SetActive(true);
+
+
+        print($"{slot.SlotID} + end drag");
     }
 }

@@ -8,33 +8,30 @@ using UnityEngine;
 public sealed class ItemManager : MonoBehaviour {
     public ItemDatabase ItemDatabase;
 
-    readonly Dictionary<int, IPlayerItem> _items = new();
+    readonly Dictionary<int, PlayerItem> _items = new();
 
-    public ReadOnlyDictionary<int, IPlayerItem> Items;
+    public ReadOnlyDictionary<int, PlayerItem> Items;
     
     public static ItemManager Instance { get; private set; }
-
 
     private void OnEnable() {
         if (Instance)
             Destroy(Instance);
 
         Instance = this;
-    }
 
-        private void Start() {
-            foreach(var item in ItemDatabase.Items) {
-                if (item.TryGetComponent<PlayerItem>(out PlayerItem playerItem)) {
-                    _items.Add(playerItem.Item.ItemID, playerItem);
-                }
+        foreach (var item in ItemDatabase.Items) {
+            if (item.TryGetComponent<PlayerItem>(out PlayerItem playerItem)) {
+                _items.Add(playerItem.Item.ItemID, playerItem);
             }
-
-        Items = new ReadOnlyDictionary<int, IPlayerItem>(_items);
-        Debug.Log(Items[0].Item.ItemName);
         }
 
-    public PlayerItem GetItem(int id) {
-        return Items[id] as PlayerItem;
+        Items = new ReadOnlyDictionary<int, PlayerItem>(_items);
+        Debug.Log(Items[0].Item.ItemName);
+    }
+
+    public PlayerItem GetItem(int itemID) {
+        return _items[itemID];
     }
 
     public bool TryGetItemByGameObject(GameObject go, out PlayerItem item) {

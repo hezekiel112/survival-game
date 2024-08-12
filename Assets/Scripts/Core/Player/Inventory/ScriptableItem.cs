@@ -29,7 +29,11 @@ public class ScriptableItem : ScriptableObject {
     public bool CanBeStacked => _canBeStacked;
     public int MaxStackSize => _maxStackSize;
 
-    public string GetItemType() {
+    public Sprite GetItemIcon() {
+        return _itemIcon;
+    }
+
+    public string FormatItemType() {
         switch (ItemType) {
             case EItemType.NutrimentHunger:
                 return "Hunger";

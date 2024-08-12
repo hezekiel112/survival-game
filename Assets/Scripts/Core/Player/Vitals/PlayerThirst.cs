@@ -16,11 +16,11 @@ public class PlayerThirst : Vital {
     }
 
     public override WhenDecrease OnDecrease() {
-        return () => Debug.Log("Thirst decreased.");
+        return () => { };
     }
 
     public override WhenIncrease OnIncrease() {
-        return () => Debug.Log("Thirst increased.");
+        return () => { };
     }
 
     public override bool CanDecrease() {

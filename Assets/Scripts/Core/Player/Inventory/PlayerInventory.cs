@@ -1,5 +1,4 @@
-using System;
-using System.Linq;
+using System.Collections.Generic;
 using UnityEngine;
 
 public class PlayerInventory : MonoBehaviour, IPlayerInventory
@@ -11,6 +10,9 @@ public class PlayerInventory : MonoBehaviour, IPlayerInventory
 
     [Header("Inventory :")]
     public ItemSlot[] InventorySlots;
+    public GameObject[] InventorySlotsGameObjects;
+
+    public Dictionary<GameObject, ItemSlot> InventorySlotsCollection = new();
 
     public static PlayerInventory Instance {
         get; set;
@@ -23,9 +25,26 @@ public class PlayerInventory : MonoBehaviour, IPlayerInventory
             KeyCode.Alpha4,
     };*/
 
-    private void Start() {
+    private void OnEnable() {
         Destroy(Instance);
         Instance = this;
+    }
+
+    public ItemSlot SwapSlot(ref ItemSlot slot, int newSlotID) {
+        var newSlot = FindInventorySlotWithID(newSlotID);
+
+        newSlot.AddItemToSlot(ItemManager.Instance.Items[0]);
+        newSlot.Stack = slot.Stack;
+
+        slot.RemoveItemFromSlot();
+
+        return FindInventorySlotWithID(newSlotID);
+    }
+
+    private void Start() {
+        for (int i = 0; i < InventorySlotsGameObjects.Length; i++) {
+            InventorySlotsCollection.Add(InventorySlotsGameObjects[i], InventorySlots[i]);
+        }
     }
 
     /*    private void Update() {
@@ -42,7 +61,7 @@ public class PlayerInventory : MonoBehaviour, IPlayerInventory
         }*/
 
     public void UseItemFromSlot(ItemSlot slot) {
-        IPlayerItem itemFromSlot = ItemManager.Instance.GetItem(slot.Item.ItemID);
+        IPlayerItem itemFromSlot = ItemManager.Instance.Items[slot.Item.ItemID];
 
         Debug.Log(slot.GetItem().ItemName);
 
@@ -66,9 +85,9 @@ public class PlayerInventory : MonoBehaviour, IPlayerInventory
     /// <returns></returns>
     public bool GetSlotWithItem(IPlayerItem item, out ItemSlot slot) {
         for (int i = 0; i < InventorySlots.Length; i++) {
-            if (InventorySlots[i].Stack < item.Item.MaxStackSize) {
-                if (InventorySlots[i].HasItem() && InventorySlots[i].GetItem().ItemID == item.Item.ItemID) {
-                    slot = InventorySlots[i];
+            if (FindInventorySlotWithID(i).Stack < item.Item.MaxStackSize) {
+                if (FindInventorySlotWithID(i).HasItem() && FindInventorySlotWithID(i).GetItem().ItemID == item.Item.ItemID) {
+                    slot = FindInventorySlotWithID(i);
                     return true;
                 }
             }
@@ -80,8 +99,8 @@ public class PlayerInventory : MonoBehaviour, IPlayerInventory
 
     public bool GetSlotWithItem(IPlayerItem item) {
         for (int i = 0; i < InventorySlots.Length; i++) {
-            if (InventorySlots[i].Stack < item.Item.MaxStackSize) {
-                return InventorySlots[i].GetItem().ItemID == item.Item.ItemID;
+            if (FindInventorySlotWithID(i).Stack < item.Item.MaxStackSize) {
+                return FindInventorySlotWithID(i).GetItem().ItemID == item.Item.ItemID;
             }
         }
 
@@ -93,10 +112,14 @@ public class PlayerInventory : MonoBehaviour, IPlayerInventory
     /// <returns></returns>
     public ItemSlot FindFirstFreeSlot() {
         for (int i = 0; i < InventorySlots.Length; i++) {
-            if (!InventorySlots[i].HasItem())
-                return InventorySlots[i];
+            if (!FindInventorySlotWithID(i).HasItem())
+                return FindInventorySlotWithID(i);
         }
 
         return null;
+    }
+
+    public ItemSlot FindInventorySlotWithID(int slotID) {
+        return InventorySlots[slotID] ?? null;
     }
 }
