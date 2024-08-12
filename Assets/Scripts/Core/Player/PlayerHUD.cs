@@ -1,4 +1,5 @@
 using System.Collections;
+using System.Linq;
 using System.Text;
 using TMPro;
 using UnityEngine;
@@ -97,8 +98,16 @@ public class PlayerHUD : MonoBehaviour
         Cursor.visible = false;
     }
 
+    readonly KeyCode[] InventoryOpenCloseInput = {
+        KeyCode.I,
+        KeyCode.Escape,
+    };
+
     private void Update() {
-        if (Input.GetKeyDown(KeyCode.I))
+        if (Input.GetKeyDown(InventoryOpenCloseInput[1]))
+            _inventoryObject.SetActive(false);
+
+        if (Input.GetKeyDown(InventoryOpenCloseInput[0]))
             InventoryOpenClose();
     }
 

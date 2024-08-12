@@ -834,7 +834,7 @@ GameObject:
   - component: {fileID: 37034658}
   - component: {fileID: 37034657}
   m_Layer: 0
-  m_Name: Inventory Slot 9 Item Stack
+  m_Name: Inventory Slot Item Stack
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -3078,7 +3078,7 @@ GameObject:
   - component: {fileID: 262178993}
   - component: {fileID: 262178992}
   m_Layer: 0
-  m_Name: Inventory Slot 5 Item Stack
+  m_Name: Inventory Slot Item Stack
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -3395,7 +3395,7 @@ GameObject:
   - component: {fileID: 282357825}
   - component: {fileID: 282357824}
   m_Layer: 0
-  m_Name: Inventory Slot 6 Item Stack
+  m_Name: Inventory Slot Item Stack
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -6707,7 +6707,7 @@ GameObject:
   - component: {fileID: 675163678}
   - component: {fileID: 675163677}
   m_Layer: 0
-  m_Name: Inventory Slot 3 Item Stack
+  m_Name: Inventory Slot Item Stack
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -6940,7 +6940,7 @@ GameObject:
   - component: {fileID: 693702861}
   - component: {fileID: 693702860}
   m_Layer: 0
-  m_Name: Inventory Slot 4 Item Stack
+  m_Name: Inventory Slot Item Stack
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -10523,7 +10523,7 @@ GameObject:
   - component: {fileID: 972558573}
   - component: {fileID: 972558572}
   m_Layer: 0
-  m_Name: Inventory Slot 12 Item Stack
+  m_Name: Inventory Slot Item Stack
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -11709,7 +11709,7 @@ GameObject:
   - component: {fileID: 1013648301}
   - component: {fileID: 1013648300}
   m_Layer: 0
-  m_Name: Inventory Slot 1 Item Stack
+  m_Name: Inventory Slot Item Stack
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -11978,7 +11978,7 @@ GameObject:
   - component: {fileID: 1033203519}
   - component: {fileID: 1033203518}
   m_Layer: 0
-  m_Name: Inventory Slot 2 Item Stack
+  m_Name: Inventory Slot Item Stack
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -13137,7 +13137,7 @@ GameObject:
   - component: {fileID: 1152801296}
   - component: {fileID: 1152801295}
   m_Layer: 0
-  m_Name: Inventory Slot 8 Item Stack
+  m_Name: Inventory Slot Item Stack
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -13370,7 +13370,7 @@ GameObject:
   - component: {fileID: 1163927013}
   - component: {fileID: 1163927012}
   m_Layer: 0
-  m_Name: Inventory Slot 11 Item Stack
+  m_Name: Inventory Slot Item Stack
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -14856,7 +14856,7 @@ GameObject:
   - component: {fileID: 1305913751}
   - component: {fileID: 1305913750}
   m_Layer: 0
-  m_Name: Inventory Slot 15 Item Stack
+  m_Name: Inventory Slot Item Stack
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -14990,7 +14990,7 @@ GameObject:
   - component: {fileID: 1315702847}
   - component: {fileID: 1315702846}
   m_Layer: 0
-  m_Name: Inventory Slot 10 Item Stack
+  m_Name: Inventory Slot Item Stack
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -17758,7 +17758,7 @@ GameObject:
   - component: {fileID: 1536033866}
   - component: {fileID: 1536033865}
   m_Layer: 0
-  m_Name: Inventory Slot 7 Item Stack
+  m_Name: Inventory Slot Item Stack
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -22124,7 +22124,7 @@ GameObject:
   - component: {fileID: 1980105211}
   - component: {fileID: 1980105210}
   m_Layer: 0
-  m_Name: Inventory Slot 14 Item Stack
+  m_Name: Inventory Slot Item Stack
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -23076,7 +23076,7 @@ GameObject:
   - component: {fileID: 2114861608}
   - component: {fileID: 2114861607}
   m_Layer: 0
-  m_Name: Inventory Slot 13 Item Stack
+  m_Name: Inventory Slot Item Stack
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0

@@ -103,9 +103,11 @@ public class InventorySlotItemActions : MonoBehaviour, IPointerEnterHandler, IPo
     public void OnEndDrag(PointerEventData eventData) {
         Destroy(transform.root.Find("temp item icon").gameObject);
 
+        // slot trouvé, swap de celui-ci vers l'autre
         if (PlayerInventory.Instance.InventorySlotsCollection.TryGetValue(eventData.pointerCurrentRaycast.gameObject.transform.parent.gameObject, out var slot)) {
             PlayerInventory.Instance.SwapSlot(ref _itemSlot, slot.SlotID);
             this.transform.GetChild(0).Find("Inventory Slot Item Stack").gameObject.SetActive(true);
+            // pour une raison quelqu'onque cela n'a pas marché, return
         } else {
             this.transform.GetChild(0).Find("Inventory Slot Item Stack").gameObject.SetActive(true);
             return;

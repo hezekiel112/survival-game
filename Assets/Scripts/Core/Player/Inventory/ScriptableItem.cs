@@ -1,5 +1,4 @@
 ﻿using UnityEngine;
-using static UnityEditor.Progress;
 
 /// <summary>
 /// This script handle the PlayerItem item data
