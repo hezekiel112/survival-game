@@ -37,6 +37,7 @@ public class InventorySlotItemActions : MonoBehaviour, IPointerEnterHandler, IPo
 
     void DisplayTooltip(string text) {
         _itemTooltipGO.SetActive(true);
+        this._itemTooltip.transform.parent.gameObject.SetActive(true);
 
         _itemTooltipSB.Clear();
         _itemTooltipSB.Append(text);
@@ -100,13 +101,16 @@ public class InventorySlotItemActions : MonoBehaviour, IPointerEnterHandler, IPo
     }
 
     public void OnEndDrag(PointerEventData eventData) {
-        if (PlayerInventory.Instance.InventorySlotsCollection.TryGetValue(eventData.pointerCurrentRaycast.gameObject.transform.parent.gameObject, out var slot)) {
-            PlayerInventory.Instance.SwapSlot(ref _itemSlot, slot.SlotID);
-        }
-
         Destroy(transform.root.Find("temp item icon").gameObject);
 
-        this._itemTooltip.transform.parent.gameObject.SetActive(true);
+        if (PlayerInventory.Instance.InventorySlotsCollection.TryGetValue(eventData.pointerCurrentRaycast.gameObject.transform.parent.gameObject, out var slot)) {
+            PlayerInventory.Instance.SwapSlot(ref _itemSlot, slot.SlotID);
+            this.transform.GetChild(0).Find("Inventory Slot Item Stack").gameObject.SetActive(true);
+        } else {
+            this.transform.GetChild(0).Find("Inventory Slot Item Stack").gameObject.SetActive(true);
+            return;
+        }
+
         this.transform.GetChild(0).Find("Inventory Slot Item Stack").gameObject.SetActive(true);
 
 
