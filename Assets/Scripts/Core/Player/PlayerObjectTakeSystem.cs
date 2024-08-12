@@ -10,7 +10,10 @@ public class PlayerObjectTakeSystem : MonoBehaviour
     [SerializeField] PlayerVitals _playerVitals;
     [SerializeField] PlayerRaycastHandler _playerRaycast;
     [SerializeField] PlayerInventory _playerInventory;
-    Rigidbody _objectToTakeRb;
+
+    Rigidbody TakedObjectRigidbody {
+        get; set;
+    }
 
     private void Start() {
         _playerRaycast.OnKeyPressF += TakeObject;
@@ -25,16 +28,20 @@ public class PlayerObjectTakeSystem : MonoBehaviour
     void Update() {
         if (!Cursor.visible && PlayerRaycastHandler.OnRaycastEnter(out Transform hit)) {
             StartCoroutine(PlayerHUD.OnDisplayEnter($"Press F to pickup <color=green><b>{hit.name}</b></color>"));
-        } else {
+        } 
+        else {
             DisableHUDText();
         }
 
-        if (_objectToTakeRb != null) {
+        if (TakedObjectRigidbody != null) {
             DisableHUDText();
         }
     }
 
     void PickupItem(Transform t) {
+        if (TakedObjectRigidbody)
+            return;
+
         if (t.CompareTag("Item")) {
             if (ItemManager.Instance.TryGetItemByGameObject(t.gameObject, out PlayerItem item)) {
                 if (!item.Item.CanBeStacked) {
@@ -79,19 +86,24 @@ public class PlayerObjectTakeSystem : MonoBehaviour
         if (t.CompareTag("Pickable")) {
             Rigidbody rb = t.GetComponent<Rigidbody>();
 
-            _objectToTakeRb = rb;
-            t.position = _takePoint.position;
-            _objectToTakeRb.isKinematic = true;
-            _objectToTakeRb.useGravity = false;
+            if (rb) {
+                DisableHUDText();
+
+                TakedObjectRigidbody = rb;
+                Debug.Log(TakedObjectRigidbody);
+                t.position = _takePoint.position;
+                TakedObjectRigidbody.isKinematic = true;
+                TakedObjectRigidbody.useGravity = false;
+            }
         }
     }
 
     void ReleaseObject() {
-        if (!_objectToTakeRb)
+        if (!TakedObjectRigidbody)
             return;
 
-        _objectToTakeRb.isKinematic = false;
-        _objectToTakeRb.useGravity = true;
-        _objectToTakeRb = null;
+        TakedObjectRigidbody.isKinematic = false;
+        TakedObjectRigidbody.useGravity = true;
+        TakedObjectRigidbody = null;
     }
 }

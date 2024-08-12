@@ -56,8 +56,6 @@ public class PlayerRaycastHandler : MonoBehaviour
 
         if (!Cursor.visible && Input.GetKeyDown(KeyCode.F)) {
             OnKeyDownPressF?.Invoke(hits[0].transform);
-
-            return;
         }
     }
 }
