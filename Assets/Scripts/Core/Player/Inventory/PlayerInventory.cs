@@ -30,7 +30,6 @@ public class PlayerInventory : MonoBehaviour, IPlayerInventory
         Instance = this;
     }
 
-    // slot -> newSlotId -> slot -> newSlotID
     public ItemSlot SwapSlot(ref ItemSlot slot, int newSlotID) {
         var newSlot = FindInventorySlotWithID(newSlotID);
 
