@@ -53,7 +53,7 @@ public class PlayerInventory : MonoBehaviour, IPlayerInventory
         } 
         else if (newSlot.HasItem()) {
             // the targeted slot has item, swap them
-            if (slot.GetItem() == newSlot.GetItem()) {
+            if (slot.GetItem().Equals(newSlot.GetItem())) {
                 (slot.Stack, newSlot.Stack) = (newSlot.Stack, slot.Stack);
 
                 PlayerHUD.OnItemAdded(slot.SlotID, slot.Stack);
