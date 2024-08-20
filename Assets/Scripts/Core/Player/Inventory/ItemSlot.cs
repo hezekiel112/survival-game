@@ -32,6 +32,17 @@ public class ItemSlot {
         return true;
     }
 
+    public bool AddItemToSlot(PlayerItem item, int stack) {
+        PlayerHUD.OnItemPickup.Invoke(SlotID, item.Item.ItemIcon);
+
+        _stack = stack;
+
+        _item = item.Item;
+
+        PlayerHUD.OnItemAdded.Invoke(SlotID, stack);
+        return true;
+    }
+
     public ScriptableItem GetItem() { return _item; }
 
     public bool RemoveItemFromSlot() {

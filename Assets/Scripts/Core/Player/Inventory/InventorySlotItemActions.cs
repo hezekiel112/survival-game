@@ -101,21 +101,37 @@ public class InventorySlotItemActions : MonoBehaviour, IPointerEnterHandler, IPo
     }
 
     public void OnEndDrag(PointerEventData eventData) {
-        Destroy(transform.root.Find("temp item icon").gameObject);
-
         // slot trouvé, swap de celui-ci vers l'autre
         if (PlayerInventory.Instance.InventorySlotsCollection.TryGetValue(eventData.pointerCurrentRaycast.gameObject.transform.parent.gameObject, out var slot)) {
-            PlayerInventory.Instance.SwapSlot(ref _itemSlot, slot.SlotID);
-            this.transform.GetChild(0).Find("Inventory Slot Item Stack").gameObject.SetActive(true);
+            
+            if (slot == this._itemSlot) {
+                this.transform.GetChild(0).Find("Inventory Slot Item Stack").gameObject.SetActive(true);
+
+                Destroy(transform.root.Find("temp item icon").gameObject);
+                return;
+            }
+
+            if (slot.HasItem()) {
+                // ce slot a deja un item, transfer de celui-ci vers l'autre et ainsi de suite
+                PlayerInventory.Instance.SwapSlot(ref _itemSlot, slot.SlotID, false);
+                this.transform.GetChild(0).Find("Inventory Slot Item Stack").gameObject.SetActive(true);
+
+                Destroy(transform.root.Find("temp item icon").gameObject);
+                return;
+            }
+            else {
+                PlayerInventory.Instance.SwapSlot(ref _itemSlot, slot.SlotID);
+                this.transform.GetChild(0).Find("Inventory Slot Item Stack").gameObject.SetActive(true);
+
+                Destroy(transform.root.Find("temp item icon").gameObject);
+                return;
+            }
             // pour une raison quelqu'onque cela n'a pas marché, return
         } else {
             this.transform.GetChild(0).Find("Inventory Slot Item Stack").gameObject.SetActive(true);
+
+            Destroy(transform.root.Find("temp item icon").gameObject);
             return;
         }
-
-        this.transform.GetChild(0).Find("Inventory Slot Item Stack").gameObject.SetActive(true);
-
-
-        print($"{slot.SlotID} + end drag");
     }
 }

@@ -30,14 +30,37 @@ public class PlayerInventory : MonoBehaviour, IPlayerInventory
         Instance = this;
     }
 
+    // slot -> newSlotId -> slot -> newSlotID
     public ItemSlot SwapSlot(ref ItemSlot slot, int newSlotID) {
         var newSlot = FindInventorySlotWithID(newSlotID);
 
-        newSlot.AddItemToSlot(ItemManager.Instance.Items[0]);
-        newSlot.Stack = slot.Stack;
+        newSlot.AddItemToSlot(ItemManager.Instance.Items[0], slot.Stack);
 
         slot.RemoveItemFromSlot();
 
+        return FindInventorySlotWithID(newSlotID);
+    }
+
+    public ItemSlot SwapSlot(ref ItemSlot slot, int newSlotID, bool removeSlotItems) {
+        ItemSlot newSlot = FindInventorySlotWithID(newSlotID);
+
+        if (!newSlot.HasItem()) {
+            if (removeSlotItems)
+                slot.RemoveItemFromSlot();
+
+            newSlot.AddItemToSlot(ItemManager.Instance.Items[0], slot.Stack);
+
+            slot.RemoveItemFromSlot();
+        } 
+        else if (newSlot.HasItem()) {
+            // the targeted slot has item, swap them
+            if (slot.GetItem() == newSlot.GetItem()) {
+                (slot.Stack, newSlot.Stack) = (newSlot.Stack, slot.Stack);
+
+                PlayerHUD.OnItemAdded(slot.SlotID, slot.Stack);
+                PlayerHUD.OnItemAdded(newSlot.SlotID, newSlot.Stack);
+            }
+        }
         return FindInventorySlotWithID(newSlotID);
     }
 
