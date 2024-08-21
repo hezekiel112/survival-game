@@ -7,12 +7,14 @@ public class PlayerInventory : MonoBehaviour, IPlayerInventory
 
     [Header("Hotbar :")]
     public ItemSlot[] SlotBarSlots;
+    public GameObject[] SlotBarSlotsGameObjects;
 
     [Header("Inventory :")]
     public ItemSlot[] InventorySlots;
     public GameObject[] InventorySlotsGameObjects;
 
     public Dictionary<GameObject, ItemSlot> InventorySlotsCollection = new();
+    public Dictionary<GameObject, ItemSlot> SlotBarsSlotsCollection = new();
 
     public static PlayerInventory Instance {
         get; set;
@@ -30,6 +32,16 @@ public class PlayerInventory : MonoBehaviour, IPlayerInventory
         Instance = this;
     }
 
+    private void Start() {
+        for (int i = 0; i < InventorySlotsGameObjects.Length; i++) {
+            InventorySlotsCollection.Add(InventorySlotsGameObjects[i], InventorySlots[i]);
+        }
+
+        for (int i = 0; i < SlotBarSlotsGameObjects.Length; i++) {
+            SlotBarsSlotsCollection.Add(SlotBarSlotsGameObjects[i], SlotBarSlots[i]);
+        }
+    }
+
     public ItemSlot SwapSlot(ref ItemSlot slot, int newSlotID) {
         var newSlot = FindInventorySlotWithID(newSlotID);
 
@@ -38,6 +50,19 @@ public class PlayerInventory : MonoBehaviour, IPlayerInventory
         slot.RemoveItemFromSlot();
 
         return FindInventorySlotWithID(newSlotID);
+    }
+
+    public ItemSlot TransferInventorySlotToSlotBar(ref ItemSlot slot, int newSlotBarSlotID) {
+        var newSlot = FindSlotbarSlotWithID(newSlotBarSlotID);
+
+        if (!newSlot.HasItem()) {
+            newSlot.AddItemToSlot(ItemManager.Instance.Items[0], slot.Stack);
+            slot.RemoveItemFromSlot();
+
+            PlayerHUD.OnItemAdded(newSlot.SlotID, newSlot.Stack);
+        }
+
+        return newSlot;
     }
 
     public ItemSlot SwapSlot(ref ItemSlot slot, int newSlotID, bool removeSlotItems) {
@@ -61,14 +86,9 @@ public class PlayerInventory : MonoBehaviour, IPlayerInventory
             } else
                 return newSlot;
         }
-        return FindInventorySlotWithID(newSlotID);
+        return newSlot;
     }
 
-    private void Start() {
-        for (int i = 0; i < InventorySlotsGameObjects.Length; i++) {
-            InventorySlotsCollection.Add(InventorySlotsGameObjects[i], InventorySlots[i]);
-        }
-    }
 
     /*    private void Update() {
             for (int i = 0; i < _hotBarKeys.Length; i++) {
@@ -140,6 +160,10 @@ public class PlayerInventory : MonoBehaviour, IPlayerInventory
         }
 
         return null;
+    }
+
+    public ItemSlot FindSlotbarSlotWithID(int hotBarSlotID) {
+        return SlotBarSlots[hotBarSlotID] ?? null;
     }
 
     public ItemSlot FindInventorySlotWithID(int slotID) {

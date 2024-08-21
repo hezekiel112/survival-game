@@ -377,6 +377,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   _slotID: 12
+  _isSlotBarSlot: 0
   _itemSlot:
     _slotID: 0
     _item: {fileID: 0}
@@ -1456,6 +1457,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   _slotID: 10
+  _isSlotBarSlot: 0
   _itemSlot:
     _slotID: 0
     _item: {fileID: 0}
@@ -1540,7 +1542,7 @@ GameObject:
   - component: {fileID: 109367128}
   - component: {fileID: 109367127}
   m_Layer: 0
-  m_Name: Slot 4 Item Stack
+  m_Name: Slot 3 Item Stack
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -2351,8 +2353,9 @@ GameObject:
   - component: {fileID: 184096648}
   - component: {fileID: 184096650}
   - component: {fileID: 184096649}
+  - component: {fileID: 184096651}
   m_Layer: 0
-  m_Name: Slot 4
+  m_Name: Slot 3
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -2417,6 +2420,29 @@ CanvasRenderer:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 184096647}
   m_CullTransparentMesh: 1
+--- !u!114 &184096651
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 184096647}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 93a49a8565f29c94189d7cab9071d147, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  _slotID: 3
+  _isSlotBarSlot: 1
+  _itemSlot:
+    _slotID: 0
+    _item: {fileID: 0}
+    _stack: 0
+  _itemTooltipGO: {fileID: 0}
+  _itemTooltip: {fileID: 0}
+  _useItemButton: {fileID: 0}
+  _showActionPannel: {fileID: 0}
+  _itemActionsPannel: {fileID: 0}
 --- !u!1 &187073310
 GameObject:
   m_ObjectHideFlags: 0
@@ -3317,8 +3343,9 @@ GameObject:
   - component: {fileID: 276771922}
   - component: {fileID: 276771924}
   - component: {fileID: 276771923}
+  - component: {fileID: 276771925}
   m_Layer: 0
-  m_Name: Slot 3
+  m_Name: Slot 2
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -3383,6 +3410,29 @@ CanvasRenderer:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 276771921}
   m_CullTransparentMesh: 1
+--- !u!114 &276771925
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 276771921}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 93a49a8565f29c94189d7cab9071d147, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  _slotID: 2
+  _isSlotBarSlot: 1
+  _itemSlot:
+    _slotID: 0
+    _item: {fileID: 0}
+    _stack: 0
+  _itemTooltipGO: {fileID: 0}
+  _itemTooltip: {fileID: 0}
+  _useItemButton: {fileID: 0}
+  _showActionPannel: {fileID: 0}
+  _itemActionsPannel: {fileID: 0}
 --- !u!1 &282357822
 GameObject:
   m_ObjectHideFlags: 0
@@ -3905,6 +3955,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   _slotID: 13
+  _isSlotBarSlot: 0
   _itemSlot:
     _slotID: 0
     _item: {fileID: 0}
@@ -4004,6 +4055,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   _slotID: 9
+  _isSlotBarSlot: 0
   _itemSlot:
     _slotID: 0
     _item: {fileID: 0}
@@ -4505,6 +4557,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   _slotID: 5
+  _isSlotBarSlot: 0
   _itemSlot:
     _slotID: 0
     _item: {fileID: 0}
@@ -5242,8 +5295,9 @@ GameObject:
   - component: {fileID: 572368482}
   - component: {fileID: 572368484}
   - component: {fileID: 572368483}
+  - component: {fileID: 572368485}
   m_Layer: 0
-  m_Name: Slot 2
+  m_Name: Slot 1
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -5308,6 +5362,29 @@ CanvasRenderer:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 572368481}
   m_CullTransparentMesh: 1
+--- !u!114 &572368485
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 572368481}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 93a49a8565f29c94189d7cab9071d147, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  _slotID: 1
+  _isSlotBarSlot: 1
+  _itemSlot:
+    _slotID: 0
+    _item: {fileID: 0}
+    _stack: 0
+  _itemTooltipGO: {fileID: 0}
+  _itemTooltip: {fileID: 0}
+  _useItemButton: {fileID: 0}
+  _showActionPannel: {fileID: 0}
+  _itemActionsPannel: {fileID: 0}
 --- !u!1 &574370336
 GameObject:
   m_ObjectHideFlags: 0
@@ -5425,8 +5502,9 @@ GameObject:
   - component: {fileID: 575298536}
   - component: {fileID: 575298538}
   - component: {fileID: 575298537}
+  - component: {fileID: 575298539}
   m_Layer: 0
-  m_Name: Slot 4 Item
+  m_Name: Slot 3 Item
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -5489,6 +5567,62 @@ CanvasRenderer:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 575298535}
   m_CullTransparentMesh: 1
+--- !u!114 &575298539
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 575298535}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 4e29b1a8efbd4b44bb3f3716e73f07ff, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  m_Navigation:
+    m_Mode: 3
+    m_WrapAround: 0
+    m_SelectOnUp: {fileID: 0}
+    m_SelectOnDown: {fileID: 0}
+    m_SelectOnLeft: {fileID: 0}
+    m_SelectOnRight: {fileID: 0}
+  m_Transition: 1
+  m_Colors:
+    m_NormalColor: {r: 1, g: 1, b: 1, a: 1}
+    m_HighlightedColor: {r: 0.41509432, g: 0.41509432, b: 0.41509432, a: 1}
+    m_PressedColor: {r: 0.78431374, g: 0.78431374, b: 0.78431374, a: 1}
+    m_SelectedColor: {r: 0.9607843, g: 0.9607843, b: 0.9607843, a: 1}
+    m_DisabledColor: {r: 0.78431374, g: 0.78431374, b: 0.78431374, a: 0.5019608}
+    m_ColorMultiplier: 1
+    m_FadeDuration: 0.1
+  m_SpriteState:
+    m_HighlightedSprite: {fileID: 0}
+    m_PressedSprite: {fileID: 0}
+    m_SelectedSprite: {fileID: 0}
+    m_DisabledSprite: {fileID: 0}
+  m_AnimationTriggers:
+    m_NormalTrigger: Normal
+    m_HighlightedTrigger: Highlighted
+    m_PressedTrigger: Pressed
+    m_SelectedTrigger: Selected
+    m_DisabledTrigger: Disabled
+  m_Interactable: 1
+  m_TargetGraphic: {fileID: 184096649}
+  m_OnClick:
+    m_PersistentCalls:
+      m_Calls:
+      - m_Target: {fileID: 184096651}
+        m_TargetAssemblyTypeName: InventorySlotItemActions, Assembly-CSharp
+        m_MethodName: ShowOrHidePannel
+        m_Mode: 1
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
 --- !u!1 &578399290
 GameObject:
   m_ObjectHideFlags: 0
@@ -5501,7 +5635,7 @@ GameObject:
   - component: {fileID: 578399292}
   - component: {fileID: 578399293}
   m_Layer: 0
-  m_Name: Slot 3 Item Stack
+  m_Name: Slot 2 Item Stack
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -6919,6 +7053,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   _slotID: 2
+  _isSlotBarSlot: 0
   _itemSlot:
     _slotID: 0
     _item: {fileID: 0}
@@ -7152,6 +7287,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   _slotID: 7
+  _isSlotBarSlot: 0
   _itemSlot:
     _slotID: 0
     _item: {fileID: 0}
@@ -8131,6 +8267,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   _slotID: 4
+  _isSlotBarSlot: 0
   _itemSlot:
     _slotID: 0
     _item: {fileID: 0}
@@ -10447,6 +10584,7 @@ GameObject:
   - component: {fileID: 955911007}
   - component: {fileID: 955911009}
   - component: {fileID: 955911008}
+  - component: {fileID: 955911010}
   m_Layer: 0
   m_Name: Slot 1 Item
   m_TagString: Untagged
@@ -10511,6 +10649,62 @@ CanvasRenderer:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 955911006}
   m_CullTransparentMesh: 1
+--- !u!114 &955911010
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 955911006}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 4e29b1a8efbd4b44bb3f3716e73f07ff, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  m_Navigation:
+    m_Mode: 3
+    m_WrapAround: 0
+    m_SelectOnUp: {fileID: 0}
+    m_SelectOnDown: {fileID: 0}
+    m_SelectOnLeft: {fileID: 0}
+    m_SelectOnRight: {fileID: 0}
+  m_Transition: 1
+  m_Colors:
+    m_NormalColor: {r: 1, g: 1, b: 1, a: 1}
+    m_HighlightedColor: {r: 0.41509432, g: 0.41509432, b: 0.41509432, a: 1}
+    m_PressedColor: {r: 0.78431374, g: 0.78431374, b: 0.78431374, a: 1}
+    m_SelectedColor: {r: 0.9607843, g: 0.9607843, b: 0.9607843, a: 1}
+    m_DisabledColor: {r: 0.78431374, g: 0.78431374, b: 0.78431374, a: 0.5019608}
+    m_ColorMultiplier: 1
+    m_FadeDuration: 0.1
+  m_SpriteState:
+    m_HighlightedSprite: {fileID: 0}
+    m_PressedSprite: {fileID: 0}
+    m_SelectedSprite: {fileID: 0}
+    m_DisabledSprite: {fileID: 0}
+  m_AnimationTriggers:
+    m_NormalTrigger: Normal
+    m_HighlightedTrigger: Highlighted
+    m_PressedTrigger: Pressed
+    m_SelectedTrigger: Selected
+    m_DisabledTrigger: Disabled
+  m_Interactable: 1
+  m_TargetGraphic: {fileID: 1372487086}
+  m_OnClick:
+    m_PersistentCalls:
+      m_Calls:
+      - m_Target: {fileID: 1372487088}
+        m_TargetAssemblyTypeName: InventorySlotItemActions, Assembly-CSharp
+        m_MethodName: ShowOrHidePannel
+        m_Mode: 1
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
 --- !u!1 &972558570
 GameObject:
   m_ObjectHideFlags: 0
@@ -13349,6 +13543,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   _slotID: 14
+  _isSlotBarSlot: 0
   _itemSlot:
     _slotID: 0
     _item: {fileID: 0}
@@ -14772,6 +14967,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   _slotID: 11
+  _isSlotBarSlot: 0
   _itemSlot:
     _slotID: 0
     _item: {fileID: 0}
@@ -15485,7 +15681,7 @@ GameObject:
   - component: {fileID: 1343480442}
   - component: {fileID: 1343480443}
   m_Layer: 0
-  m_Name: Slot 2 Item Stack
+  m_Name: Slot 1 Item Stack
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -15887,8 +16083,9 @@ GameObject:
   - component: {fileID: 1372487085}
   - component: {fileID: 1372487087}
   - component: {fileID: 1372487086}
+  - component: {fileID: 1372487088}
   m_Layer: 0
-  m_Name: Slot 1
+  m_Name: Slot
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -15953,6 +16150,29 @@ CanvasRenderer:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1372487084}
   m_CullTransparentMesh: 1
+--- !u!114 &1372487088
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1372487084}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 93a49a8565f29c94189d7cab9071d147, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  _slotID: 0
+  _isSlotBarSlot: 1
+  _itemSlot:
+    _slotID: 0
+    _item: {fileID: 0}
+    _stack: 0
+  _itemTooltipGO: {fileID: 0}
+  _itemTooltip: {fileID: 0}
+  _useItemButton: {fileID: 0}
+  _showActionPannel: {fileID: 0}
+  _itemActionsPannel: {fileID: 0}
 --- !u!1 &1391588784
 GameObject:
   m_ObjectHideFlags: 0
@@ -16174,6 +16394,11 @@ MonoBehaviour:
   - _slotID: 3
     _item: {fileID: 0}
     _stack: 0
+  SlotBarSlotsGameObjects:
+  - {fileID: 1372487084}
+  - {fileID: 572368481}
+  - {fileID: 276771921}
+  - {fileID: 184096647}
   InventorySlots:
   - _slotID: 0
     _item: {fileID: 0}
@@ -16392,6 +16617,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   _slotID: 3
+  _isSlotBarSlot: 0
   _itemSlot:
     _slotID: 0
     _item: {fileID: 0}
@@ -17299,6 +17525,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   _slotID: 1
+  _isSlotBarSlot: 0
   _itemSlot:
     _slotID: 0
     _item: {fileID: 0}
@@ -18105,6 +18332,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   _slotID: 15
+  _isSlotBarSlot: 0
   _itemSlot:
     _slotID: 0
     _item: {fileID: 0}
@@ -18410,8 +18638,9 @@ GameObject:
   - component: {fileID: 1620754651}
   - component: {fileID: 1620754653}
   - component: {fileID: 1620754652}
+  - component: {fileID: 1620754654}
   m_Layer: 0
-  m_Name: Slot 2 Item
+  m_Name: Slot 1 Item
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -18474,6 +18703,62 @@ CanvasRenderer:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1620754650}
   m_CullTransparentMesh: 1
+--- !u!114 &1620754654
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1620754650}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 4e29b1a8efbd4b44bb3f3716e73f07ff, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  m_Navigation:
+    m_Mode: 3
+    m_WrapAround: 0
+    m_SelectOnUp: {fileID: 0}
+    m_SelectOnDown: {fileID: 0}
+    m_SelectOnLeft: {fileID: 0}
+    m_SelectOnRight: {fileID: 0}
+  m_Transition: 1
+  m_Colors:
+    m_NormalColor: {r: 1, g: 1, b: 1, a: 1}
+    m_HighlightedColor: {r: 0.41509432, g: 0.41509432, b: 0.41509432, a: 1}
+    m_PressedColor: {r: 0.78431374, g: 0.78431374, b: 0.78431374, a: 1}
+    m_SelectedColor: {r: 0.9607843, g: 0.9607843, b: 0.9607843, a: 1}
+    m_DisabledColor: {r: 0.78431374, g: 0.78431374, b: 0.78431374, a: 0.5019608}
+    m_ColorMultiplier: 1
+    m_FadeDuration: 0.1
+  m_SpriteState:
+    m_HighlightedSprite: {fileID: 0}
+    m_PressedSprite: {fileID: 0}
+    m_SelectedSprite: {fileID: 0}
+    m_DisabledSprite: {fileID: 0}
+  m_AnimationTriggers:
+    m_NormalTrigger: Normal
+    m_HighlightedTrigger: Highlighted
+    m_PressedTrigger: Pressed
+    m_SelectedTrigger: Selected
+    m_DisabledTrigger: Disabled
+  m_Interactable: 1
+  m_TargetGraphic: {fileID: 572368483}
+  m_OnClick:
+    m_PersistentCalls:
+      m_Calls:
+      - m_Target: {fileID: 572368485}
+        m_TargetAssemblyTypeName: InventorySlotItemActions, Assembly-CSharp
+        m_MethodName: ShowOrHidePannel
+        m_Mode: 1
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
 --- !u!1001 &1634554625
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -18621,6 +18906,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   _slotID: 0
+  _isSlotBarSlot: 0
   _itemSlot:
     _slotID: 0
     _item: {fileID: 0}
@@ -19235,6 +19521,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   _slotID: 6
+  _isSlotBarSlot: 0
   _itemSlot:
     _slotID: 0
     _item: {fileID: 0}
@@ -21765,6 +22052,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   _slotID: 8
+  _isSlotBarSlot: 0
   _itemSlot:
     _slotID: 0
     _item: {fileID: 0}
@@ -23477,8 +23765,9 @@ GameObject:
   - component: {fileID: 2128380985}
   - component: {fileID: 2128380987}
   - component: {fileID: 2128380986}
+  - component: {fileID: 2128380988}
   m_Layer: 0
-  m_Name: Slot 3 Item
+  m_Name: Slot 2 Item
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -23541,6 +23830,62 @@ CanvasRenderer:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 2128380984}
   m_CullTransparentMesh: 1
+--- !u!114 &2128380988
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2128380984}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 4e29b1a8efbd4b44bb3f3716e73f07ff, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  m_Navigation:
+    m_Mode: 3
+    m_WrapAround: 0
+    m_SelectOnUp: {fileID: 0}
+    m_SelectOnDown: {fileID: 0}
+    m_SelectOnLeft: {fileID: 0}
+    m_SelectOnRight: {fileID: 0}
+  m_Transition: 1
+  m_Colors:
+    m_NormalColor: {r: 1, g: 1, b: 1, a: 1}
+    m_HighlightedColor: {r: 0.41509432, g: 0.41509432, b: 0.41509432, a: 1}
+    m_PressedColor: {r: 0.78431374, g: 0.78431374, b: 0.78431374, a: 1}
+    m_SelectedColor: {r: 0.9607843, g: 0.9607843, b: 0.9607843, a: 1}
+    m_DisabledColor: {r: 0.78431374, g: 0.78431374, b: 0.78431374, a: 0.5019608}
+    m_ColorMultiplier: 1
+    m_FadeDuration: 0.1
+  m_SpriteState:
+    m_HighlightedSprite: {fileID: 0}
+    m_PressedSprite: {fileID: 0}
+    m_SelectedSprite: {fileID: 0}
+    m_DisabledSprite: {fileID: 0}
+  m_AnimationTriggers:
+    m_NormalTrigger: Normal
+    m_HighlightedTrigger: Highlighted
+    m_PressedTrigger: Pressed
+    m_SelectedTrigger: Selected
+    m_DisabledTrigger: Disabled
+  m_Interactable: 1
+  m_TargetGraphic: {fileID: 276771923}
+  m_OnClick:
+    m_PersistentCalls:
+      m_Calls:
+      - m_Target: {fileID: 276771925}
+        m_TargetAssemblyTypeName: InventorySlotItemActions, Assembly-CSharp
+        m_MethodName: ShowOrHidePannel
+        m_Mode: 1
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
 --- !u!1 &2129414033
 GameObject:
   m_ObjectHideFlags: 0

@@ -1,13 +1,13 @@
-using System.Linq;
 using System.Text;
 using TMPro;
-using Unity.VisualScripting;
 using UnityEngine;
 using UnityEngine.EventSystems;
 using UnityEngine.UI;
 
 public class InventorySlotItemActions : MonoBehaviour, IPointerEnterHandler, IPointerExitHandler, IBeginDragHandler, IDragHandler, IEndDragHandler {
     [SerializeField] int _slotID;
+    [SerializeField] bool _isSlotBarSlot;
+    [Space]
     [SerializeField] ItemSlot _itemSlot = null;
     [SerializeField] GameObject _itemTooltipGO;
     [SerializeField] TextMeshProUGUI _itemTooltip;
@@ -111,30 +111,45 @@ public class InventorySlotItemActions : MonoBehaviour, IPointerEnterHandler, IPo
         }
 
         // si un slot est trouvé, swap de celui-ci vers l'autre
-        if (PlayerInventory.Instance.InventorySlotsCollection.TryGetValue(eventData.pointerCurrentRaycast.gameObject.transform.parent.gameObject, out var slot)) {
+        if (PlayerInventory.Instance.InventorySlotsCollection.TryGetValue(eventData.pointerCurrentRaycast.gameObject.transform.parent.gameObject, out var inventorySlot)) {
             
-            if (slot == this._itemSlot) {
+            if (inventorySlot == this._itemSlot) {
                 this.transform.GetChild(0).Find("Inventory Slot Item Stack").gameObject.SetActive(true);
 
                 Destroy(transform.root.Find("temp item icon").gameObject);
                 return;
             }
 
-            if (slot.HasItem()) {
+            if (inventorySlot.HasItem()) {
                 // ce slot a deja un item, transfer de celui-ci vers l'autre et ainsi de suite
-                PlayerInventory.Instance.SwapSlot(ref _itemSlot, slot.SlotID, false);
+                PlayerInventory.Instance.SwapSlot(ref _itemSlot, inventorySlot.SlotID, false);
                 this.transform.GetChild(0).Find("Inventory Slot Item Stack").gameObject.SetActive(true);
 
                 Destroy(transform.root.Find("temp item icon").gameObject);
                 return;
             }
             else {
-                PlayerInventory.Instance.SwapSlot(ref _itemSlot, slot.SlotID);
+                PlayerInventory.Instance.SwapSlot(ref _itemSlot, inventorySlot.SlotID);
                 this.transform.GetChild(0).Find("Inventory Slot Item Stack").gameObject.SetActive(true);
 
                 Destroy(transform.root.Find("temp item icon").gameObject);
                 return;
             }
-        } 
+        }
+        else if (inventorySlot == null) {
+            if (PlayerInventory.Instance.SlotBarsSlotsCollection.TryGetValue(eventData.pointerCurrentRaycast.gameObject.transform.parent.gameObject, out var slotBarSlot)) {
+                if (slotBarSlot == this._itemSlot) {
+                    this.transform.GetChild(0).Find("Inventory Slot Item Stack").gameObject.SetActive(true);
+
+                    Destroy(transform.root.Find("temp item icon").gameObject);
+                    return;
+                }
+
+                PlayerInventory.Instance.TransferInventorySlotToSlotBar(ref this._itemSlot, slotBarSlot.SlotID);
+
+
+                return;
+            }
+        }
     }
 }

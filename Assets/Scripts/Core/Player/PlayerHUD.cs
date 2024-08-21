@@ -1,5 +1,4 @@
 using System.Collections;
-using System.Linq;
 using System.Text;
 using TMPro;
 using UnityEngine;
@@ -32,14 +31,23 @@ public class PlayerHUD : MonoBehaviour
     public delegate void WhenHealthVitalValueChange(Vital vital);
     public static WhenHealthVitalValueChange OnHealthVitalValueHasChanged;
 
+    public delegate void WhenSlotBarItemPickup(int slotID, Sprite itemIcon);
+    public static WhenSlotBarItemPickup OnSlotBarItemPickup;
+
     public delegate void WhenItemPickup(int slotID, Sprite itemIcon);
     public static WhenItemPickup OnItemPickup;
 
-    public delegate void OnItemStackAdded(int slotID, int stackSize);
-    public static OnItemStackAdded OnItemAdded;
+    public delegate void WhenItemAdded(int slotID, int stackSize);
+    public static WhenItemAdded OnItemAdded;
+
+    public delegate void WhenSlotBarItemAdded(int slotID, int stackSize);
+    public static WhenSlotBarItemAdded OnSlotBarItemAdded;
 
     public delegate void WhenItemUsed(int slotID);
     public static WhenItemUsed OnItemUsed;
+
+    public delegate void WhenSlotBarItemUsed(int slotID);
+    public static WhenSlotBarItemUsed OnSlotBarItemUsed;
 
     readonly StringBuilder 
         _hungerValueTextSB = new(),
@@ -71,6 +79,13 @@ public class PlayerHUD : MonoBehaviour
         new(),
     };
 
+    readonly StringBuilder[] _slotBarCells_SBTextStack = new StringBuilder[4] {
+        new(),
+        new(),
+        new(),
+        new(),
+    };
+
     private void OnDisable() {
         OnHungerVitalValueHasChanged -= UpdateHungerVitalValueText;
         OnThirstVitalValueHasChanged -= UpdateThirstVitalValueText;
@@ -85,15 +100,25 @@ public class PlayerHUD : MonoBehaviour
     }
 
     private void OnEnable() {
+        OnDisplayEnter += DisplayText;
+
+        // ### VITAL HUD RELATED
         OnHungerVitalValueHasChanged += UpdateHungerVitalValueText;
         OnThirstVitalValueHasChanged += UpdateThirstVitalValueText;
         OnHealthVitalValueHasChanged += UpdateHealthVitalValueText;
+        // -----------------------------
 
+        // ### INVENTORY RELATED
         OnItemPickup += UpdateInventoryItemIcon;
         OnItemAdded += UpdateInventoryItemStackSize;
         OnItemUsed += UpdateInventoryItemIcon;
-
-        OnDisplayEnter += DisplayText;
+        // -----------------------------
+        
+        // ### SLOTBAR RELATED
+        OnSlotBarItemPickup += UpdateSlotBarItemIcon;
+        OnSlotBarItemAdded += UpdateSlotBarItemStackSize;
+        OnSlotBarItemUsed += UpdateSlotBarItemIcon;
+        // -----------------------------
 
         Cursor.visible = false;
     }
@@ -116,6 +141,17 @@ public class PlayerHUD : MonoBehaviour
         Cursor.visible = _inventoryObject.activeSelf ? true : false;
     }
 
+    public void UpdateSlotBarItemStackSize(int slotID, int stackSize) {
+        for (int i = 0; i < _slotBarItemIcons.Length; i++) {
+            if (i == slotID) {
+                _slotBarCells_SBTextStack[i].Clear();
+                _slotBarCells_SBTextStack[i].Append(stackSize == 0 ? string.Empty : stackSize.ToString());
+                _slotBarStackSizeTexts[i].text = _inventoryCells_SBTextStack[i].ToString();
+                break;
+            }
+        }
+    }
+
     public void UpdateInventoryItemStackSize(int slotID, int stackSize) {
         for (int i = 0; i < _inventoryCellsIcons.Length; i++) {
            if (i == slotID) {
@@ -125,6 +161,20 @@ public class PlayerHUD : MonoBehaviour
                 break;
            }
         }
+    }
+
+
+    /// <summary>
+    /// replace the generic ItemSlot's icon
+    /// </summary>
+    /// <param name="slotID"></param>
+    /// <param name="itemIcon"></param>
+    public void UpdateSlotBarItemIcon(int slotID, Sprite itemIcon) {
+        _slotBarItemIcons[slotID].sprite = itemIcon;
+    }
+
+    public void UpdateSlotBarItemIcon(int slotID) {
+        _slotBarItemIcons[slotID].sprite = null;
     }
 
     /// <summary>
