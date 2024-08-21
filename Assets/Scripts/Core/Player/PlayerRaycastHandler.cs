@@ -47,8 +47,6 @@ public class PlayerRaycastHandler : MonoBehaviour
     }
 
     private void Update() {
-        print(hits[0].transform.name);
-
         if (!Cursor.visible) {
             if (Input.GetKey(KeyCode.F)) {
                 OnKeyPressF?.Invoke(hits[0].transform);

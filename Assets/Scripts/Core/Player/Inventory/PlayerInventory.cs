@@ -58,7 +58,8 @@ public class PlayerInventory : MonoBehaviour, IPlayerInventory
 
                 PlayerHUD.OnItemAdded(slot.SlotID, slot.Stack);
                 PlayerHUD.OnItemAdded(newSlot.SlotID, newSlot.Stack);
-            }
+            } else
+                return newSlot;
         }
         return FindInventorySlotWithID(newSlotID);
     }

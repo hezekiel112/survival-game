@@ -1,6 +1,7 @@
 using System.Linq;
 using System.Text;
 using TMPro;
+using Unity.VisualScripting;
 using UnityEngine;
 using UnityEngine.EventSystems;
 using UnityEngine.UI;
@@ -101,7 +102,15 @@ public class InventorySlotItemActions : MonoBehaviour, IPointerEnterHandler, IPo
     }
 
     public void OnEndDrag(PointerEventData eventData) {
-        // slot trouvé, swap de celui-ci vers l'autre
+        if (!eventData.pointerCurrentRaycast.isValid) {
+            this.transform.GetChild(0).Find("Inventory Slot Item Stack").gameObject.SetActive(true);
+
+            Destroy(transform.root.Find("temp item icon").gameObject);
+
+            return;
+        }
+
+        // si un slot est trouvé, swap de celui-ci vers l'autre
         if (PlayerInventory.Instance.InventorySlotsCollection.TryGetValue(eventData.pointerCurrentRaycast.gameObject.transform.parent.gameObject, out var slot)) {
             
             if (slot == this._itemSlot) {
@@ -126,12 +135,6 @@ public class InventorySlotItemActions : MonoBehaviour, IPointerEnterHandler, IPo
                 Destroy(transform.root.Find("temp item icon").gameObject);
                 return;
             }
-            // pour une raison quelqu'onque cela n'a pas marché, return
-        } else {
-            this.transform.GetChild(0).Find("Inventory Slot Item Stack").gameObject.SetActive(true);
-
-            Destroy(transform.root.Find("temp item icon").gameObject);
-            return;
-        }
+        } 
     }
 }
