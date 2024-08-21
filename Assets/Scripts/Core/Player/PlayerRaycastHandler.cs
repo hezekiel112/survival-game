@@ -1,3 +1,4 @@
+using Palmmedia.ReportGenerator.Core.Reporting.Builders;
 using System;
 using UnityEngine;
 
@@ -26,36 +27,39 @@ public class PlayerRaycastHandler : MonoBehaviour
     readonly RaycastHit[] hits = new RaycastHit[1];
 
     private void FixedUpdate() {
-        if (Physics.RaycastNonAlloc(transform.position, transform.TransformDirection(Vector3.forward), hits, 15, _maskHit) > 0) {
+        if (Physics.RaycastNonAlloc(transform.position, transform.TransformDirection(Vector3.forward), hits, 12, _maskHit) > 0) {
             RaycastHit hit = hits[0];
 
             OnRaycastEnter += (out Transform rayHit) => {
                 rayHit = hit.transform;
                 return true;
             };
-        } 
+        }
         else {
-            OnRaycastEnter = null;
-            OnRaycastEnter += (out Transform hit) => {
-                hit = null;
+            OnRaycastEnter += (out Transform rayHit) => {
+                rayHit = null;
                 return false;
             };
-
+            Array.Clear(hits, 0, hits.Length);
+            
             return;
         }
     }
 
     private void Update() {
-        if (!Cursor.visible && Input.GetKey(KeyCode.F)) {
-            OnKeyPressF?.Invoke(hits[0].transform);
-        }
+        print(hits[0].transform.name);
 
-        if (!Cursor.visible && Input.GetKey(KeyCode.F)) {
-            OnKeyReleaseF?.Invoke();
-        }
-
-        if (!Cursor.visible && Input.GetKeyDown(KeyCode.F)) {
-            OnKeyDownPressF?.Invoke(hits[0].transform);
+        if (!Cursor.visible) {
+            if (Input.GetKey(KeyCode.F)) {
+                OnKeyPressF?.Invoke(hits[0].transform);
+            } else if (Input.GetKeyUp(KeyCode.F)) {
+                OnKeyReleaseF?.Invoke();
+            } 
+            if (Input.GetKeyDown(KeyCode.F)) {
+                OnKeyDownPressF?.Invoke(hits[0].transform);
+            }
+            else
+                return;
         }
     }
 }

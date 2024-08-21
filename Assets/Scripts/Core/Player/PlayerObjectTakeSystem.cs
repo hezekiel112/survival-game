@@ -21,28 +21,37 @@ public class PlayerObjectTakeSystem : MonoBehaviour
         _playerRaycast.OnKeyReleaseF += ReleaseObject;
     }
 
+    private void OnDisable() {
+        _playerRaycast.OnKeyPressF     -= TakeObject;
+        _playerRaycast.OnKeyDownPressF -= PickupItem;
+        _playerRaycast.OnKeyReleaseF   -= ReleaseObject;
+    }
+
     void DisableHUDText() {
         StartCoroutine(PlayerHUD.OnDisplayEnter(""));
     }
 
     void Update() {
-        if (!Cursor.visible && PlayerRaycastHandler.OnRaycastEnter(out Transform hit)) {
-            StartCoroutine(PlayerHUD.OnDisplayEnter($"Press F to pickup <color=green><b>{hit.name}</b></color>"));
-        } 
-        else {
+        if (TakedObjectRigidbody) {
             DisableHUDText();
+            
+            return;
         }
 
-        if (TakedObjectRigidbody != null) {
-            DisableHUDText();
-        }
+        if (!Cursor.visible) {
+            if (PlayerRaycastHandler.OnRaycastEnter(out Transform hit)) {
+                StartCoroutine(PlayerHUD.OnDisplayEnter($"Press F to pickup <color=green><b>{hit.name}</b></color>"));
+            } else {
+                DisableHUDText();
+            }
+        } 
     }
 
     void PickupItem(Transform t) {
         if (TakedObjectRigidbody)
             return;
 
-        if (t.CompareTag("Item")) {
+        if (t != null && t.CompareTag("Item")) {
             if (ItemManager.Instance.TryGetItemByGameObject(t.gameObject, out PlayerItem item)) {
                 if (!item.Item.CanBeStacked) {
                     ItemSlot slot = _playerInventory.FindFirstFreeSlot();
@@ -83,7 +92,7 @@ public class PlayerObjectTakeSystem : MonoBehaviour
     }
 
     void TakeObject(Transform t) {
-        if (t.CompareTag("Pickable")) {
+        if (t != null && t.CompareTag("Pickable")) {
             Rigidbody rb = t.GetComponent<Rigidbody>();
 
             if (rb) {
