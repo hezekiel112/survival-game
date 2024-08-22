@@ -1,3 +1,4 @@
+using System;
 using System.Collections.Generic;
 using UnityEngine;
 
@@ -40,6 +41,26 @@ public class PlayerInventory : MonoBehaviour, IPlayerInventory
         for (int i = 0; i < SlotBarSlotsGameObjects.Length; i++) {
             SlotBarsSlotsCollection.Add(SlotBarSlotsGameObjects[i], SlotBarSlots[i]);
         }
+    }
+
+    public bool CombineStackToSlot(ref ItemSlot slot, int slotIdToCombineStack) {
+        var slotToCombine = FindInventorySlotWithID(slotIdToCombineStack);
+
+        if (slot.GetItem() != slotToCombine.GetItem()) {
+            return false;
+        }
+
+        var maxTransfer = Math.Min(slotToCombine.Stack, slot.GetItem().MaxStackSize - slotToCombine.Stack);
+
+        if (maxTransfer <= 0) {
+            return false;
+        }
+
+        slotToCombine.Stack += maxTransfer;
+        slot.Stack -= maxTransfer;
+
+        return true;
+
     }
 
     public ItemSlot SwapSlot(ref ItemSlot slot, int newSlotID) {
