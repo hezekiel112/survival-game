@@ -43,6 +43,13 @@ public class PlayerInventory : MonoBehaviour, IPlayerInventory
         }
     }
 
+    /// <summary>
+    /// This function is used to add slot stack by other slot
+    /// </summary>
+    /// <param name="slot"></param>
+    /// <param name="slotIdToCombineStack"></param>
+    /// <returns></returns>
+
     public bool CombineStackToSlot(ref ItemSlot slot, int slotIdToCombineStack) {
         var slotToCombine = FindInventorySlotWithID(slotIdToCombineStack);
 
@@ -63,6 +70,12 @@ public class PlayerInventory : MonoBehaviour, IPlayerInventory
 
     }
 
+    /// <summary>
+    /// This function is used to swap a slot a cell position to another cell position
+    /// </summary>
+    /// <param name="slot"></param>
+    /// <param name="newSlotID"></param>
+    /// <returns></returns>
     public ItemSlot SwapSlot(ref ItemSlot slot, int newSlotID) {
         var newSlot = FindInventorySlotWithID(newSlotID);
 
@@ -73,6 +86,12 @@ public class PlayerInventory : MonoBehaviour, IPlayerInventory
         return FindInventorySlotWithID(newSlotID);
     }
 
+    /// <summary>
+    /// This function is used to transfer a inventory cell to a slotbar inventory
+    /// </summary>
+    /// <param name="slot"></param>
+    /// <param name="newSlotBarSlotID"></param>
+    /// <returns></returns>
     public ItemSlot TransferInventorySlotToSlotBar(ref ItemSlot slot, int newSlotBarSlotID) {
         var newSlot = FindSlotbarSlotWithID(newSlotBarSlotID);
 
@@ -124,6 +143,10 @@ public class PlayerInventory : MonoBehaviour, IPlayerInventory
             }
         }*/
 
+    /// <summary>
+    /// This function is used to use an item from inventory or slotbar
+    /// </summary>
+    /// <param name="slot"></param>
     public void UseItemFromSlot(ItemSlot slot) {
         IPlayerItem itemFromSlot = ItemManager.Instance.Items[slot.Item.ItemID];
 
@@ -138,7 +161,7 @@ public class PlayerInventory : MonoBehaviour, IPlayerInventory
         slot.Stack -= 1;
         itemFromSlot.UseItem(_playerVitals);
 
-        PlayerHUD.OnItemAdded(slot.SlotID, slot.Stack);
+        PlayerHUD.OnItemUsed(slot.SlotID);
     }
 
     /// <summary>
