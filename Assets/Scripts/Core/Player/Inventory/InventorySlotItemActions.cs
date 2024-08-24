@@ -24,16 +24,18 @@ public class InventorySlotItemActions : MonoBehaviour, IPointerEnterHandler, IPo
     private void Start() {
         _itemTooltipGO.SetActive(false);
 
-        _useItemButton.onClick.AddListener(() => {
-            if ((_itemSlot.Stack - 1) <= 0) {
-                PlayerInventory.Instance.UseItemFromSlot(_itemSlot);
-                _itemTooltipGO.SetActive(false);
-                _itemActionsPannel.SetActive(false);
-                return;
-            }
+        if (!_isSlotBarSlot) {
+            _useItemButton.onClick.AddListener(() => {
+                if ((_itemSlot.Stack - 1) <= 0) {
+                    PlayerInventory.Instance.UseItemFromSlot(_itemSlot);
+                    _itemTooltipGO.SetActive(false);
+                    _itemActionsPannel.SetActive(false);
+                    return;
+                }
 
-            PlayerInventory.Instance.UseItemFromSlot(_itemSlot);
-        });
+                PlayerInventory.Instance.UseItemFromSlot(_itemSlot);
+            });
+        }
     }
 
     void DisplayTooltip(string text) {
@@ -120,23 +122,33 @@ public class InventorySlotItemActions : MonoBehaviour, IPointerEnterHandler, IPo
                 return;
             }
 
-            if (inventorySlot.HasItem()) {
-                // ce slot a deja un item, transfer de celui-ci vers l'autre et ainsi de suite
-                PlayerInventory.Instance.SwapSlot(ref _itemSlot, inventorySlot.SlotID, false);
-                this.transform.GetChild(0).Find("Inventory Slot Item Stack").gameObject.SetActive(true);
+            bool hasInventorySlotItem = inventorySlot.HasItem();
 
-                Destroy(transform.root.Find("temp item icon").gameObject);
+            if (hasInventorySlotItem && inventorySlot.GetItem().CanBeStacked) {
+                if (PlayerInventory.Instance.CombineStackToSlot(ref this._itemSlot, inventorySlot.SlotID)) {
+                    this.transform.GetChild(0).Find("Inventory Slot Item Stack").gameObject.SetActive(true);
+
+                    Destroy(transform.root.Find("temp item icon").gameObject);
+
+                    return;
+                } 
+                else {
+                    SwapSlot(inventorySlot, false);
+                    return;
+                }
+            }
+            else if (hasInventorySlotItem && !inventorySlot.GetItem().CanBeStacked) {
+                SwapSlot(inventorySlot, false);
                 return;
             }
             else {
-                PlayerInventory.Instance.SwapSlot(ref _itemSlot, inventorySlot.SlotID);
-                this.transform.GetChild(0).Find("Inventory Slot Item Stack").gameObject.SetActive(true);
-
-                Destroy(transform.root.Find("temp item icon").gameObject);
-                return;
+                if (!hasInventorySlotItem) {
+                    SwapSlot(inventorySlot, true);
+                    return;
+                }
             }
-        }
-        else if (inventorySlot == null) {
+
+        } else if (inventorySlot == null) {
             if (PlayerInventory.Instance.SlotBarsSlotsCollection.TryGetValue(eventData.pointerCurrentRaycast.gameObject.transform.parent.gameObject, out var slotBarSlot)) {
                 if (slotBarSlot == this._itemSlot) {
                     this.transform.GetChild(0).Find("Inventory Slot Item Stack").gameObject.SetActive(true);
@@ -151,5 +163,20 @@ public class InventorySlotItemActions : MonoBehaviour, IPointerEnterHandler, IPo
                 return;
             }
         }
+    }
+
+    private void SwapSlot(ItemSlot inventorySlot, bool isBlankSlot) {
+        if (isBlankSlot) {
+            PlayerInventory.Instance.SwapSlot(ref _itemSlot, inventorySlot.SlotID);
+            this.transform.GetChild(0).Find("Inventory Slot Item Stack").gameObject.SetActive(true);
+
+            Destroy(transform.root.Find("temp item icon").gameObject);
+            return;
+        }
+
+        PlayerInventory.Instance.SwapSlot(ref _itemSlot, inventorySlot.SlotID, false);
+        this.transform.GetChild(0).Find("Inventory Slot Item Stack").gameObject.SetActive(true);
+
+        Destroy(transform.root.Find("temp item icon").gameObject);
     }
 }

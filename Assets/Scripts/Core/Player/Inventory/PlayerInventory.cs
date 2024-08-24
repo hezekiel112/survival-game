@@ -53,18 +53,27 @@ public class PlayerInventory : MonoBehaviour, IPlayerInventory
     public bool CombineStackToSlot(ref ItemSlot slot, int slotIdToCombineStack) {
         var slotToCombine = FindInventorySlotWithID(slotIdToCombineStack);
 
-        if (slot.GetItem() != slotToCombine.GetItem()) {
-            return false;
+        if (slot.GetItem().ItemID.Equals(slotToCombine.GetItem().ItemID)) {
+
+            if (slotToCombine.Stack.Equals(slotToCombine.GetItem().MaxStackSize))
+                return false;
+
+            if ((slotToCombine.Stack + slot.Stack) > slotToCombine.GetItem().MaxStackSize) {
+                
+                slotToCombine.Stack = slotToCombine.GetItem().MaxStackSize;
+                slot.Stack = (slotToCombine.Stack + slot.Stack) - slotToCombine.GetItem().MaxStackSize;
+
+                PlayerHUD.OnItemAdded(slotToCombine.SlotID, slotToCombine.Stack);
+                PlayerHUD.OnItemAdded(slot.SlotID, slot.Stack);
+            }
+
+            else {
+                slotToCombine.Stack += slot.Stack;
+                slot.RemoveItemFromSlot();
+
+                PlayerHUD.OnItemAdded(slotToCombine.SlotID, slotToCombine.Stack);
+            }
         }
-
-        var maxTransfer = Math.Min(slotToCombine.Stack, slot.GetItem().MaxStackSize - slotToCombine.Stack);
-
-        if (maxTransfer <= 0) {
-            return false;
-        }
-
-        slotToCombine.Stack += maxTransfer;
-        slot.Stack -= maxTransfer;
 
         return true;
 
@@ -161,7 +170,7 @@ public class PlayerInventory : MonoBehaviour, IPlayerInventory
         slot.Stack -= 1;
         itemFromSlot.UseItem(_playerVitals);
 
-        PlayerHUD.OnItemUsed(slot.SlotID);
+        PlayerHUD.OnItemAdded(slot.SlotID, slot.Stack);
     }
 
     /// <summary>
