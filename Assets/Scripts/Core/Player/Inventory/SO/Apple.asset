@@ -19,5 +19,5 @@ MonoBehaviour:
   _itemType: 2
   _defaultStackSize: 2
   _canBeStacked: 1
-  _maxStackSize: 2
+  _maxStackSize: 6
   _itemID: 0

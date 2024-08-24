@@ -56,13 +56,9 @@ public class InventorySlotItemActions : MonoBehaviour, IPointerEnterHandler, IPo
     public void OnPointerEnter(PointerEventData eventData) {
         _itemSlot = PlayerInventory.Instance.FindInventorySlotWithID(_slotID);
 
-        if (!_itemSlot.HasItem()) {
-            return;
-        }
-        else {
-            if (!_isDragging) {
-                DisplayTooltip($"{_itemSlot.GetItem().ItemName} +{_itemSlot.GetItem().Bonus} {_itemSlot.GetItem().FormatItemType()}\n{_itemSlot.Item.ItemDescription}");
-            }
+
+        if (!eventData.IsPointerMoving() && _itemSlot.HasItem()) {
+            DisplayTooltip($"{_itemSlot.GetItem().ItemName} +{_itemSlot.GetItem().Bonus} {_itemSlot.GetItem().FormatItemType()}\n{_itemSlot.Item.ItemDescription}");
         }
     }
 
@@ -76,8 +72,6 @@ public class InventorySlotItemActions : MonoBehaviour, IPointerEnterHandler, IPo
     public void OnBeginDrag(PointerEventData eventData) {
         if (!_itemSlot.HasItem())
             return;
-
-        _isDragging = eventData.dragging;
 
         itemIcon = _itemSlot.Item.GetItemIcon();
 
@@ -149,8 +143,9 @@ public class InventorySlotItemActions : MonoBehaviour, IPointerEnterHandler, IPo
                     return;
                 }
             }
-
-        } else if (inventorySlot == null) {
+        } 
+        
+        else if (inventorySlot == null) {
             if (PlayerInventory.Instance.SlotBarsSlotsCollection.TryGetValue(eventData.pointerCurrentRaycast.gameObject.transform.parent.gameObject, out var slotBarSlot)) {
                 if (slotBarSlot == this._itemSlot) {
                     this.transform.GetChild(0).Find("Inventory Slot Item Stack").gameObject.SetActive(true);

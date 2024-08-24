@@ -70,11 +70,11 @@ public class PlayerObjectTakeSystem : MonoBehaviour
                 if (item.Item.CanBeStacked) {
                     _playerInventory.GetSlotWithItem(item, out ItemSlot slot);
                     
-                    if (slot  != null && (slot.Stack + slot.GetItem().DefaultStackSize) < slot.GetItem().MaxStackSize) {
+                    if (slot  != null && !slot.Stack.Equals(slot.GetItem().MaxStackSize)) {
                         slot.AddItemToSlot(item);
                         StartCoroutine(PlayerHUD.OnDisplayEnter(pickedUpItem: item, count: item.Item.DefaultStackSize));
                     }
-                    else {
+                    else if (slot == null || slot.Stack.Equals(slot.GetItem().MaxStackSize)) {
                         ItemSlot newFreeSlot = _playerInventory.FindFirstFreeSlot();
                         
                         if (newFreeSlot != null) {
@@ -84,8 +84,6 @@ public class PlayerObjectTakeSystem : MonoBehaviour
                         else
                             StartCoroutine(PlayerHUD.OnDisplayEnter("inventory is full !", true));
                     }
-
-                    return;
                 }
             }
         }

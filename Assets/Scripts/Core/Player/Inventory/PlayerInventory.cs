@@ -21,13 +21,6 @@ public class PlayerInventory : MonoBehaviour, IPlayerInventory
         get; set;
     }
 
-    /*readonly KeyCode[] _hotBarKeys = {
-            KeyCode.Alpha1,
-            KeyCode.Alpha2,
-            KeyCode.Alpha3,
-            KeyCode.Alpha4,
-    };*/
-
     private void OnEnable() {
         Destroy(Instance);
         Instance = this;
@@ -120,12 +113,10 @@ public class PlayerInventory : MonoBehaviour, IPlayerInventory
         ItemSlot newSlot = FindInventorySlotWithID(newSlotID);
 
         if (!newSlot.HasItem()) {
-            if (removeSlotItems)
-                slot.RemoveItemFromSlot();
-
             newSlot.AddItemToSlot(ItemManager.Instance.Items[0], slot.Stack);
 
-            slot.RemoveItemFromSlot();
+            if (removeSlotItems)
+                slot.RemoveItemFromSlot();
         } 
         else if (newSlot.HasItem()) {
             // the targeted slot has item, swap them
@@ -140,19 +131,25 @@ public class PlayerInventory : MonoBehaviour, IPlayerInventory
         return newSlot;
     }
 
+    readonly KeyCode[] SlotBarKeys = {
+        KeyCode.Alpha1,
+        KeyCode.Alpha2,
+        KeyCode.Alpha3,
+        KeyCode.Alpha4,
+    };
 
-    /*    private void Update() {
-            for (int i = 0; i < _hotBarKeys.Length; i++) {
-                if (Input.GetKeyDown(_hotBarKeys[i])) {
-                    if (_playerInventoryCells.InventorySlots[i].HasItem()) {
-                        UseItemFromSlot(_playerInventoryCells.InventorySlots[i]);
+    private void Update() {
+       for (int i = 0; i < SlotBarKeys.Length; i++) {
+           if (Input.GetKeyDown(SlotBarKeys[i])) {
+               if (SlotBarSlots[i].HasItem()) {
+                   UseItemFromSlot(SlotBarSlots[i]);
 
-                        return;
-                    }
-                }
+                   return;
+               }
+           }
 
-            }
-        }*/
+       }
+    }
 
     /// <summary>
     /// This function is used to use an item from inventory or slotbar
