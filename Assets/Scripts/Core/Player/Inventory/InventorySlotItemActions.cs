@@ -112,6 +112,8 @@ public class InventorySlotItemActions : MonoBehaviour, IPointerEnterHandler, IPo
             return;
         }
 
+        print(eventData.pointerCurrentRaycast.gameObject.name);
+
         // si un slot est trouvé, swap de celui-ci vers l'autre
         if (PlayerInventory.Instance.InventorySlotsCollection.TryGetValue(eventData.pointerCurrentRaycast.gameObject.transform.parent.gameObject, out var inventorySlot)) {
             

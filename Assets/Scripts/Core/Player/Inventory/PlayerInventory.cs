@@ -54,28 +54,30 @@ public class PlayerInventory : MonoBehaviour, IPlayerInventory
         var slotToCombine = FindInventorySlotWithID(slotIdToCombineStack);
 
         if (slot.GetItem().ItemID.Equals(slotToCombine.GetItem().ItemID)) {
+            // Calculate the total stack
+            int totalStack = slotToCombine.Stack + slot.Stack;
 
-            if (slotToCombine.Stack.Equals(slotToCombine.GetItem().MaxStackSize))
-                return false;
-
-            if ((slotToCombine.Stack + slot.Stack) > slotToCombine.GetItem().MaxStackSize) {
-                
+            // Check if the total stack exceeds the maximum
+            if (totalStack > slotToCombine.GetItem().MaxStackSize) {
+                // Fill the target slot to its maximum
                 slotToCombine.Stack = slotToCombine.GetItem().MaxStackSize;
-                slot.Stack = (slotToCombine.Stack + slot.Stack) - slotToCombine.GetItem().MaxStackSize;
 
-                PlayerHUD.OnItemAdded(slotToCombine.SlotID, slotToCombine.Stack);
-                PlayerHUD.OnItemAdded(slot.SlotID, slot.Stack);
-            }
-
-            else {
-                slotToCombine.Stack += slot.Stack;
+                // Calculate the remaining stack and update the source slot
+                slot.Stack = totalStack - slotToCombine.GetItem().MaxStackSize;
+            } else {
+                // Combine the stacks without exceeding the maximum
+                slotToCombine.Stack = totalStack;
                 slot.RemoveItemFromSlot();
-
-                PlayerHUD.OnItemAdded(slotToCombine.SlotID, slotToCombine.Stack);
             }
+
+            // Update the UI
+            PlayerHUD.OnItemAdded(slotToCombine.SlotID, slotToCombine.Stack);
+            PlayerHUD.OnItemAdded(slot.SlotID, slot.Stack);
+
+            return true;
         }
 
-        return true;
+        return false;
 
     }
 
