@@ -1,5 +1,3 @@
-using System;
-using System.Collections;
 using UnityEngine;
 
 /// <summary>
@@ -55,10 +53,9 @@ public class PlayerObjectTakeSystem : MonoBehaviour
         if (t != null && t.CompareTag("Item")) {
             if (ItemManager.Instance.TryGetItemByGameObject(t.gameObject, out PlayerItem item)) {
                 if (!item.Item.CanBeStacked) {
-                    ItemSlot slot = _playerInventory.FindFirstFreeSlot();
 
-                    if (slot != null) {
-                        slot.AddItemToSlot(item);
+                    if (AddFreeSlot(item, out var newFreeSlot)) {
+                        newFreeSlot.AddItemToSlot(item);
                         StartCoroutine(PlayerHUD.OnDisplayEnter(pickedUpItem: item, count: item.Item.DefaultStackSize));
                     } else {
                         StartCoroutine(PlayerHUD.OnDisplayEnter("inventory is full !", true));
@@ -88,28 +85,39 @@ public class PlayerObjectTakeSystem : MonoBehaviour
                         else if ((slot.Stack + 1) == slot.GetItem().MaxStackSize) {
                             slot.Stack++;
 
-                            ItemSlot newFreeSlot = _playerInventory.FindFirstFreeSlot();
-                            if (newFreeSlot != null) {
+                            if (AddFreeSlot(item, out var newFreeSlot)) {
                                 newFreeSlot.AddItemToSlot(item, item.Item.DefaultStackSize - 1);
                                 StartCoroutine(PlayerHUD.OnDisplayEnter(pickedUpItem: item, count: item.Item.DefaultStackSize));
-                            } else
+                            } else {
                                 StartCoroutine(PlayerHUD.OnDisplayEnter("inventory is full !", true));
+                            }
 
                             PlayerHUD.OnItemAdded(slot.SlotID, slot.Stack);
                         }
                     } else {
-                        ItemSlot newFreeSlot = _playerInventory.FindFirstFreeSlot();
 
-                        if (newFreeSlot != null) {
-                            newFreeSlot.AddItemToSlot(item);
+                        if (AddFreeSlot(item, out _)) {
                             StartCoroutine(PlayerHUD.OnDisplayEnter(pickedUpItem: item, count: item.Item.DefaultStackSize));
-                        } else
+                        } else {
                             StartCoroutine(PlayerHUD.OnDisplayEnter("inventory is full !", true));
+                        }
                     }
                     return;
                 }
             }
         }
+    }
+
+    bool AddFreeSlot(PlayerItem item, out ItemSlot slot) {
+        ItemSlot newFreeSlot = _playerInventory.FindFirstFreeSlot();
+
+
+        if (newFreeSlot != null) {
+            newFreeSlot.AddItemToSlot(item);
+        }
+        slot = newFreeSlot;
+
+        return newFreeSlot != null;
     }
 
     void TakeObject(Transform t) {
