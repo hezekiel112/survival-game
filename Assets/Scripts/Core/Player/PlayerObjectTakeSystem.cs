@@ -67,19 +67,24 @@ public class PlayerObjectTakeSystem : MonoBehaviour
                     return;
                 }
 
+                // this code is really messy, need rework asap
                 if (item.Item.CanBeStacked) {
                     _playerInventory.GetSlotWithItem(item, out ItemSlot slot);
 
+                    // if there's a slot with the current targeted item
                     if (slot != null) {
+
+                        // check if the slot stack can be increased by the item default stack size
                         if ((slot.Stack + slot.GetItem().DefaultStackSize) <= slot.GetItem().MaxStackSize) {
                             slot.AddItemToSlot(item);
 
                             int stackToAdd = item.Item.DefaultStackSize - slot.Stack;
 
-                            print(stackToAdd);
-
                             StartCoroutine(PlayerHUD.OnDisplayEnter(pickedUpItem: item, count: item.Item.DefaultStackSize));
                         }
+
+                        // if not - check if the stack can be increased by one, if so, add 1 to the stack and add another
+                        // slot with the remaining stack - 1
                         else if ((slot.Stack + 1) == slot.GetItem().MaxStackSize) {
                             slot.Stack++;
 
