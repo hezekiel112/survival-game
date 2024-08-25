@@ -85,7 +85,13 @@ public class PlayerObjectTakeSystem : MonoBehaviour
                         else if ((slot.Stack + 1) == slot.GetItem().MaxStackSize) {
                             slot.Stack++;
 
-                            if (AddFreeSlot(item, out var newFreeSlot)) {
+                            if (_playerInventory.GetSlotWithItem(item, out var slotItem)) {
+                                if ((slotItem.Stack + item.Item.DefaultStackSize - 1) <= slotItem.GetItem().MaxStackSize) {
+                                    slotItem.Stack += item.Item.DefaultStackSize - 1;
+                                    PlayerHUD.OnItemAdded(slotItem.SlotID, slotItem.Stack);
+                                }
+                            }
+                            else if (AddFreeSlot(item, out var newFreeSlot)) {
                                 newFreeSlot.AddItemToSlot(item, item.Item.DefaultStackSize - 1);
                                 StartCoroutine(PlayerHUD.OnDisplayEnter(pickedUpItem: item, count: item.Item.DefaultStackSize));
                             } else {
