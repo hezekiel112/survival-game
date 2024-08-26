@@ -85,26 +85,13 @@ public class PlayerObjectTakeSystem : MonoBehaviour
                         else if ((slot.Stack + 1) == slot.GetItem().MaxStackSize) {
                             slot.Stack++;
 
+                            StartCoroutine(PlayerHUD.OnDisplayEnter(pickedUpItem: item, count: 1));
                             PlayerHUD.OnItemAdded(slot.SlotID, slot.Stack);
-
-                            if (_playerInventory.GetSlotWithItem(item, out var slotItem)) {
-                                int optimalStackSize = item.Item.DefaultStackSize + slotItem.Stack - 1;
-
-                                print($"{nameof(optimalStackSize)} : {optimalStackSize}");
-
-                                if (optimalStackSize <= slotItem.Stack) {
-                                    slotItem.Stack += optimalStackSize;
-
-                                    StartCoroutine(PlayerHUD.OnDisplayEnter(pickedUpItem: item, count: optimalStackSize));
-                                    PlayerHUD.OnItemAdded(slotItem.SlotID, slotItem.Stack);
-                                }
-                            }
-                            else if (AddFreeSlot(item, out var newFreeSlot)) {
+                            
+                            if (AddFreeSlot(item, out var newFreeSlot)) {
                                 newFreeSlot.AddItemToSlot(item, item.Item.DefaultStackSize - 1);
 
                                 StartCoroutine(PlayerHUD.OnDisplayEnter(pickedUpItem: item, count: item.Item.DefaultStackSize));
-                            } else {
-                                StartCoroutine(PlayerHUD.OnDisplayEnter("inventory is full !", true));
                             }
                         }
                     } else {
@@ -115,11 +102,11 @@ public class PlayerObjectTakeSystem : MonoBehaviour
                             StartCoroutine(PlayerHUD.OnDisplayEnter("inventory is full !", true));
                         }
                     }
-                    return;
                 }
             }
         }
     }
+
 
     bool AddFreeSlot(PlayerItem item, out ItemSlot slot) {
         ItemSlot newFreeSlot = _playerInventory.FindFirstFreeSlot();
