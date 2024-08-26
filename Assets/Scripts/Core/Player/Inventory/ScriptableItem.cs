@@ -24,7 +24,7 @@ public class ScriptableItem : ScriptableObject {
     public Sprite ItemIcon => _itemIcon;
     public float Bonus => _bonus;
     public EItemType ItemType => _itemType;
-    
+
     public bool CanBeStacked => _canBeStacked;
     public int MaxStackSize => _maxStackSize;
 
@@ -40,6 +40,8 @@ public class ScriptableItem : ScriptableObject {
                 return "Thirst";
             case EItemType.NutrimentHealth:
                 return "Health";
+            default:
+                break;
         }
 
         return string.Empty;

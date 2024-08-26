@@ -26,8 +26,7 @@ public class ItemSlot {
 
         if (item.Item.CanBeStacked) {
             _stack += item.Item.DefaultStackSize;
-        }
-        else {
+        } else {
             _stack = item.Item.DefaultStackSize;
         }
 

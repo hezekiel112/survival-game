@@ -2,10 +2,9 @@ using System.Collections;
 using System.Text;
 using TMPro;
 using UnityEngine;
-using UnityEngine.UI; 
+using UnityEngine.UI;
 
-public class PlayerHUD : MonoBehaviour
-{
+public class PlayerHUD : MonoBehaviour {
     [SerializeField] TextMeshProUGUI _itemDisplay, _itemPickupDisplay;
     [SerializeField] TextMeshProUGUI _healthValue, _hungerValue, _thirstValue;
 
@@ -49,7 +48,7 @@ public class PlayerHUD : MonoBehaviour
     public delegate void WhenSlotBarItemUsed(int slotID);
     public static WhenSlotBarItemUsed OnSlotBarItemUsed;
 
-    readonly StringBuilder 
+    readonly StringBuilder
         _hungerValueTextSB = new(),
         _thirstValueTextSB = new(),
         _itemDisplaySB = new(),
@@ -92,7 +91,7 @@ public class PlayerHUD : MonoBehaviour
         OnHealthVitalValueHasChanged -= UpdateHealthVitalValueText;
 
         OnItemPickup -= UpdateInventoryItemIcon;
-        OnItemUsed   -= UpdateInventoryItemIcon;
+        OnItemUsed -= UpdateInventoryItemIcon;
 
         OnDisplayEnter -= DisplayText;
 
@@ -113,7 +112,7 @@ public class PlayerHUD : MonoBehaviour
         OnItemAdded += UpdateInventoryItemStackSize;
         OnItemUsed += UpdateInventoryItemIcon;
         // -----------------------------
-        
+
         // ### SLOTBAR RELATED
         OnSlotBarItemPickup += UpdateSlotBarItemIcon;
         OnSlotBarItemAdded += UpdateSlotBarItemStackSize;
@@ -154,12 +153,12 @@ public class PlayerHUD : MonoBehaviour
 
     public void UpdateInventoryItemStackSize(int slotID, int stackSize) {
         for (int i = 0; i < _inventoryCellsIcons.Length; i++) {
-           if (i == slotID) {
+            if (i == slotID) {
                 _inventoryCells_SBTextStack[i].Clear();
                 _inventoryCells_SBTextStack[i].Append(stackSize == 0 ? string.Empty : stackSize.ToString());
                 _inventoryStackSizeTexts[i].text = _inventoryCells_SBTextStack[i].ToString();
                 break;
-           }
+            }
         }
     }
 
@@ -198,9 +197,9 @@ public class PlayerHUD : MonoBehaviour
     private void UpdateHungerVitalValueText(Vital vital) {
         _hungerValueTextSB.Clear();
         _hungerValueTextSB.Append(vital.ToString());
-       _hungerValue.text = _hungerValueTextSB.ToString();
+        _hungerValue.text = _hungerValueTextSB.ToString();
     }
-    
+
     private void UpdateThirstVitalValueText(Vital vital) {
         _thirstValueTextSB.Clear();
         _thirstValueTextSB.Append(vital.ToString());
@@ -235,15 +234,13 @@ public class PlayerHUD : MonoBehaviour
 
                 _itemPickupDisplaySB.Clear();
                 _itemPickupDisplay.text = _itemPickupDisplaySB.ToString();
-            }
-            else {
+            } else {
                 _itemDisplaySB.Clear();
                 _itemDisplaySB.Append(text);
 
                 _itemDisplay.text = _itemDisplaySB.ToString();
             }
-        }
-        else {
+        } else {
             _itemPickupDisplaySB.Clear();
             _itemPickupDisplaySB.Append($"picked up {itemPickup.Item.ItemName} x{count}");
             _itemPickupDisplay.text = _itemPickupDisplaySB.ToString();

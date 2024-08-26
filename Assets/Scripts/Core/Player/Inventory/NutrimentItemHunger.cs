@@ -5,11 +5,9 @@ public class NutrimentItemHunger : PlayerItem {
     public override ScriptableItem Item => _item;
 
     public override void UseItem(PlayerVitals vital) {
-        if (vital.Hunger.CanIncrease()) {
-            if ((vital.Hunger.Value + _item.Bonus) <= vital.Hunger.Hunger.BaseValue) {
-                vital.Hunger.Value += _item.Bonus;
-                PlayerHUD.OnHungerVitalValueHasChanged(vital.Hunger);
-            }
+        if (vital.Hunger.CanIncrease() && (vital.Hunger.Value + _item.Bonus) <= vital.Hunger.Hunger.BaseValue) {
+            vital.Hunger.Value += _item.Bonus;
+            PlayerHUD.OnHungerVitalValueHasChanged(vital.Hunger);
         }
     }
 }

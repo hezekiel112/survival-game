@@ -1,9 +1,7 @@
-using System;
 using System.Collections;
 using UnityEngine;
 
-public class PlayerVitals : MonoBehaviour
-{
+public class PlayerVitals : MonoBehaviour {
     public PlayerHealth Health;
     public PlayerThirst Thirst;
     public PlayerHunger Hunger;
@@ -26,7 +24,7 @@ public class PlayerVitals : MonoBehaviour
             StartCoroutine(routine);
         }
     }
-        
+
     public IEnumerator DecreaseThirstOverTime() {
         do {
             if (Thirst.CanDecrease()) {

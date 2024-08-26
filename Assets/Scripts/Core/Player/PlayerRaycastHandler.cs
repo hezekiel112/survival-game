@@ -4,8 +4,7 @@ using UnityEngine;
 /// <summary>
 /// This script handle the raycasting helper features
 /// </summary>
-public class PlayerRaycastHandler : MonoBehaviour
-{
+public class PlayerRaycastHandler : MonoBehaviour {
     /// <summary>
     /// Invoked when the player iis pressing F
     /// </summary>
@@ -33,14 +32,13 @@ public class PlayerRaycastHandler : MonoBehaviour
                 rayHit = hit.transform;
                 return true;
             };
-        }
-        else {
+        } else {
             OnRaycastEnter += (out Transform rayHit) => {
                 rayHit = null;
                 return false;
             };
             Array.Clear(hits, 0, hits.Length);
-            
+
             return;
         }
     }
@@ -51,12 +49,12 @@ public class PlayerRaycastHandler : MonoBehaviour
                 OnKeyPressF?.Invoke(hits[0].transform);
             } else if (Input.GetKeyUp(KeyCode.F)) {
                 OnKeyReleaseF?.Invoke();
-            } 
+            }
             if (Input.GetKeyDown(KeyCode.F)) {
                 OnKeyDownPressF?.Invoke(hits[0].transform);
-            }
-            else
+            } else {
                 return;
+            }
         }
     }
 }

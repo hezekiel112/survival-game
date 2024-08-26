@@ -19,7 +19,7 @@ public class InventorySlotItemActions : MonoBehaviour, IPointerEnterHandler, IPo
 
     readonly StringBuilder _itemTooltipSB = new();
 
-    bool _isDragging;
+    Sprite itemIcon = null;
 
     private void Start() {
         _itemTooltipGO.SetActive(false);
@@ -67,8 +67,6 @@ public class InventorySlotItemActions : MonoBehaviour, IPointerEnterHandler, IPo
         _itemActionsPannel.SetActive(false);
     }
 
-    Sprite itemIcon = null;
-
     public void OnBeginDrag(PointerEventData eventData) {
         if (!_itemSlot.HasItem())
             return;
@@ -98,7 +96,7 @@ public class InventorySlotItemActions : MonoBehaviour, IPointerEnterHandler, IPo
     }
 
     public void OnEndDrag(PointerEventData eventData) {
-        if (!eventData.pointerCurrentRaycast.isValid) {
+        if (!eventData.pointerCurrentRaycast.isValid || eventData.pointerCurrentRaycast.gameObject.name.Equals("Use")) {
             this.transform.GetChild(0).Find("Inventory Slot Item Stack").gameObject.SetActive(true);
 
             Destroy(transform.root.Find("temp item icon").gameObject);
@@ -110,7 +108,7 @@ public class InventorySlotItemActions : MonoBehaviour, IPointerEnterHandler, IPo
 
         // si un slot est trouvé, swap de celui-ci vers l'autre
         if (PlayerInventory.Instance.InventorySlotsCollection.TryGetValue(eventData.pointerCurrentRaycast.gameObject.transform.parent.gameObject, out var inventorySlot)) {
-            
+
             if (inventorySlot == this._itemSlot) {
                 this.transform.GetChild(0).Find("Inventory Slot Item Stack").gameObject.SetActive(true);
 
@@ -127,25 +125,20 @@ public class InventorySlotItemActions : MonoBehaviour, IPointerEnterHandler, IPo
                     Destroy(transform.root.Find("temp item icon").gameObject);
 
                     return;
-                } 
-                else {
+                } else {
                     SwapSlot(inventorySlot, false);
                     return;
                 }
-            }
-            else if (hasInventorySlotItem && !inventorySlot.GetItem().CanBeStacked) {
+            } else if (hasInventorySlotItem && !inventorySlot.GetItem().CanBeStacked) {
                 SwapSlot(inventorySlot, false);
                 return;
-            }
-            else {
+            } else {
                 if (!hasInventorySlotItem) {
                     SwapSlot(inventorySlot, true);
                     return;
                 }
             }
-        } 
-        
-        else if (inventorySlot == null) {
+        } else if (inventorySlot == null) {
             if (PlayerInventory.Instance.SlotBarsSlotsCollection.TryGetValue(eventData.pointerCurrentRaycast.gameObject.transform.parent.gameObject, out var slotBarSlot)) {
                 if (slotBarSlot == this._itemSlot) {
                     this.transform.GetChild(0).Find("Inventory Slot Item Stack").gameObject.SetActive(true);

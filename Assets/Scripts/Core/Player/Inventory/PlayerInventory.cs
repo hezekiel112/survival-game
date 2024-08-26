@@ -1,9 +1,7 @@
-using System;
 using System.Collections.Generic;
 using UnityEngine;
 
-public class PlayerInventory : MonoBehaviour, IPlayerInventory
-{
+public class PlayerInventory : MonoBehaviour, IPlayerInventory {
     [SerializeField] PlayerVitals _playerVitals;
 
     [Header("Hotbar :")]
@@ -117,16 +115,16 @@ public class PlayerInventory : MonoBehaviour, IPlayerInventory
 
             if (removeSlotItems)
                 slot.RemoveItemFromSlot();
-        } 
-        else if (newSlot.HasItem()) {
+        } else if (newSlot.HasItem()) {
             // the targeted slot has item, swap them
             if (slot.GetItem().Equals(newSlot.GetItem())) {
                 (slot.Stack, newSlot.Stack) = (newSlot.Stack, slot.Stack);
 
                 PlayerHUD.OnItemAdded(slot.SlotID, slot.Stack);
                 PlayerHUD.OnItemAdded(newSlot.SlotID, newSlot.Stack);
-            } else
+            } else {
                 return newSlot;
+            }
         }
         return newSlot;
     }
@@ -139,16 +137,16 @@ public class PlayerInventory : MonoBehaviour, IPlayerInventory
     };
 
     private void Update() {
-       for (int i = 0; i < SlotBarKeys.Length; i++) {
-           if (Input.GetKeyDown(SlotBarKeys[i])) {
-               if (SlotBarSlots[i].HasItem()) {
-                   UseItemFromSlot(SlotBarSlots[i]);
+        for (int i = 0; i < SlotBarKeys.Length; i++) {
+            if (Input.GetKeyDown(SlotBarKeys[i])) {
+                if (SlotBarSlots[i].HasItem()) {
+                    UseItemFromSlot(SlotBarSlots[i]);
 
-                   return;
-               }
-           }
+                    return;
+                }
+            }
 
-       }
+        }
     }
 
     /// <summary>
@@ -160,7 +158,7 @@ public class PlayerInventory : MonoBehaviour, IPlayerInventory
 
         Debug.Log(slot.GetItem().ItemName);
 
-        if ((slot.Stack - 1) == 0) {
+        if (slot.Stack == 1) {
             itemFromSlot.UseItem(_playerVitals);
             slot.RemoveItemFromSlot();
             return;
@@ -215,10 +213,10 @@ public class PlayerInventory : MonoBehaviour, IPlayerInventory
     }
 
     public ItemSlot FindSlotbarSlotWithID(int hotBarSlotID) {
-        return SlotBarSlots[hotBarSlotID] ?? null;
+        return SlotBarSlots[hotBarSlotID];
     }
 
     public ItemSlot FindInventorySlotWithID(int slotID) {
-        return InventorySlots[slotID] ?? null;
+        return InventorySlots[slotID];
     }
 }

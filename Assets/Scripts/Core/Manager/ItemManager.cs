@@ -11,7 +11,7 @@ public sealed class ItemManager : MonoBehaviour {
     readonly Dictionary<int, PlayerItem> _items = new();
 
     public ReadOnlyDictionary<int, PlayerItem> Items;
-    
+
     public static ItemManager Instance { get; private set; }
 
     private void OnEnable() {
