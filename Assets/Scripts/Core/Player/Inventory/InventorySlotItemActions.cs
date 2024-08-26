@@ -96,7 +96,7 @@ public class InventorySlotItemActions : MonoBehaviour, IPointerEnterHandler, IPo
     }
 
     public void OnEndDrag(PointerEventData eventData) {
-        if (!eventData.pointerCurrentRaycast.isValid || eventData.pointerCurrentRaycast.gameObject.name.Equals("Use")) {
+        if (!eventData.pointerCurrentRaycast.isValid || !eventData.pointerCurrentRaycast.gameObject.name.Contains("Inventory Slot")) {
             this.transform.GetChild(0).Find("Inventory Slot Item Stack").gameObject.SetActive(true);
 
             Destroy(transform.root.Find("temp item icon").gameObject);
