@@ -15,7 +15,7 @@ public class ItemSlot {
 
     [SerializeField] int _slotID;
     [SerializeField] ScriptableItem _item;
-    [SerializeField] int _stack;
+    [SerializeField] int _stack = 0;
 
     public bool HasItem() {
         return GetItem() != null;
@@ -24,7 +24,12 @@ public class ItemSlot {
     public bool AddItemToSlot(PlayerItem item) {
         PlayerHUD.OnItemPickup.Invoke(SlotID, item.Item.ItemIcon);
 
-        _stack += item.Item.DefaultStackSize;
+        if (item.Item.CanBeStacked) {
+            _stack += item.Item.DefaultStackSize;
+        }
+        else {
+            _stack = item.Item.DefaultStackSize;
+        }
 
         _item = item.Item;
 

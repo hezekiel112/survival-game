@@ -89,7 +89,12 @@ public class PlayerObjectTakeSystem : MonoBehaviour
                             PlayerHUD.OnItemAdded(slot.SlotID, slot.Stack);
                             
                             if (AddFreeSlot(item, out var newFreeSlot)) {
-                                newFreeSlot.AddItemToSlot(item, item.Item.DefaultStackSize - 1);
+                                if (item.Item.DefaultStackSize > 1) {
+                                    newFreeSlot.AddItemToSlot(item, item.Item.DefaultStackSize - 1);
+                                }
+                                else if (item.Item.DefaultStackSize == 1) {
+                                    newFreeSlot.AddItemToSlot(item, item.Item.DefaultStackSize);
+                                }
 
                                 StartCoroutine(PlayerHUD.OnDisplayEnter(pickedUpItem: item, count: item.Item.DefaultStackSize));
                             }
