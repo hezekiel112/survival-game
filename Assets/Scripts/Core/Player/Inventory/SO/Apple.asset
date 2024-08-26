@@ -17,7 +17,7 @@ MonoBehaviour:
   _itemIcon: {fileID: 21300000, guid: 987c31cc139dbfb4db62e92574f7a648, type: 3}
   _bonus: 12
   _itemType: 2
-  _defaultStackSize: 3
+  _defaultStackSize: 2
   _canBeStacked: 1
   _maxStackSize: 4
   _itemID: 0
