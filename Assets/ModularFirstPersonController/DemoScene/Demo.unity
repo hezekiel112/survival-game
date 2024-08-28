@@ -1542,7 +1542,7 @@ GameObject:
   - component: {fileID: 109367128}
   - component: {fileID: 109367127}
   m_Layer: 0
-  m_Name: Slot 3 Item Stack
+  m_Name: Slot Item Stack
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -2378,9 +2378,9 @@ RectTransform:
   - {fileID: 198789056}
   m_Father: {fileID: 1743059808}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
-  m_AnchorMin: {x: 0, y: 1}
-  m_AnchorMax: {x: 0, y: 1}
-  m_AnchoredPosition: {x: 352.5, y: -50}
+  m_AnchorMin: {x: 0.5, y: 0}
+  m_AnchorMax: {x: 0.5, y: 0}
+  m_AnchoredPosition: {x: 287.5, y: 62.5}
   m_SizeDelta: {x: 75, y: 75}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &184096649
@@ -3445,9 +3445,9 @@ RectTransform:
   - {fileID: 348519199}
   m_Father: {fileID: 1743059808}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
-  m_AnchorMin: {x: 0, y: 1}
-  m_AnchorMax: {x: 0, y: 1}
-  m_AnchoredPosition: {x: 247.5, y: -50}
+  m_AnchorMin: {x: 0.5, y: 0}
+  m_AnchorMax: {x: 0.5, y: 0}
+  m_AnchoredPosition: {x: 187.5, y: 62.5}
   m_SizeDelta: {x: 75, y: 75}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &276771923
@@ -5609,9 +5609,9 @@ RectTransform:
   - {fileID: 747794053}
   m_Father: {fileID: 1743059808}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
-  m_AnchorMin: {x: 0, y: 1}
-  m_AnchorMax: {x: 0, y: 1}
-  m_AnchoredPosition: {x: 142.5, y: -50}
+  m_AnchorMin: {x: 0.5, y: 0}
+  m_AnchorMax: {x: 0.5, y: 0}
+  m_AnchoredPosition: {x: 87.5, y: 62.5}
   m_SizeDelta: {x: 75, y: 75}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &572368483
@@ -5794,7 +5794,7 @@ GameObject:
   - component: {fileID: 575298537}
   - component: {fileID: 575298539}
   m_Layer: 0
-  m_Name: Slot 3 Item
+  m_Name: Slot Item
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -5925,7 +5925,7 @@ GameObject:
   - component: {fileID: 578399292}
   - component: {fileID: 578399293}
   m_Layer: 0
-  m_Name: Slot 2 Item Stack
+  m_Name: Slot Item Stack
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -11222,7 +11222,7 @@ GameObject:
   - component: {fileID: 955911008}
   - component: {fileID: 955911010}
   m_Layer: 0
-  m_Name: Slot 1 Item
+  m_Name: Slot Item
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -11726,7 +11726,7 @@ GameObject:
   - component: {fileID: 984698602}
   - component: {fileID: 984698603}
   m_Layer: 0
-  m_Name: Slot 1 Item Stack
+  m_Name: Slot Item Stack
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -16594,7 +16594,7 @@ GameObject:
   - component: {fileID: 1343480442}
   - component: {fileID: 1343480443}
   m_Layer: 0
-  m_Name: Slot 1 Item Stack
+  m_Name: Slot Item Stack
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -17021,9 +17021,9 @@ RectTransform:
   - {fileID: 1982106239}
   m_Father: {fileID: 1743059808}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
-  m_AnchorMin: {x: 0, y: 1}
-  m_AnchorMax: {x: 0, y: 1}
-  m_AnchoredPosition: {x: 37.5, y: -50}
+  m_AnchorMin: {x: 0.5, y: 0}
+  m_AnchorMax: {x: 0.5, y: 0}
+  m_AnchoredPosition: {x: -12.5, y: 62.5}
   m_SizeDelta: {x: 75, y: 75}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &1372487086
@@ -17541,11 +17541,6 @@ MonoBehaviour:
   _useItemButton: {fileID: 1816487177}
   _showActionPannel: {fileID: 1224783003}
   _itemActionsPannel: {fileID: 762880795}
---- !u!224 &1408920882 stripped
-RectTransform:
-  m_CorrespondingSourceObject: {fileID: 4459864851551516607, guid: 6bacecc4f3df9584198879c73a6b6c36, type: 3}
-  m_PrefabInstance: {fileID: 8765489994903951804}
-  m_PrefabAsset: {fileID: 0}
 --- !u!1 &1412722651
 GameObject:
   m_ObjectHideFlags: 0
@@ -19617,7 +19612,7 @@ GameObject:
   - component: {fileID: 1620754652}
   - component: {fileID: 1620754654}
   m_Layer: 0
-  m_Name: Slot 1 Item
+  m_Name: Slot Item
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -21243,11 +21238,11 @@ RectTransform:
   - {fileID: 572368482}
   - {fileID: 276771922}
   - {fileID: 184096648}
-  m_Father: {fileID: 1408920882}
+  m_Father: {fileID: 1867033221}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0.5, y: 0}
   m_AnchorMax: {x: 0.5, y: 0}
-  m_AnchoredPosition: {x: -125, y: 60}
+  m_AnchoredPosition: {x: -150, y: -180}
   m_SizeDelta: {x: 100, y: 100}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!1 &1746328236
@@ -22532,8 +22527,9 @@ RectTransform:
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children:
-  - {fileID: 734513448}
   - {fileID: 125767336}
+  - {fileID: 734513448}
+  - {fileID: 1743059808}
   m_Father: {fileID: 976653126}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0.5, y: 0.5}
@@ -24820,7 +24816,7 @@ GameObject:
   - component: {fileID: 2128380986}
   - component: {fileID: 2128380988}
   m_Layer: 0
-  m_Name: Slot 2 Item
+  m_Name: Slot Item
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -25182,6 +25178,18 @@ PrefabInstance:
       value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 4459864851551516593, guid: 6bacecc4f3df9584198879c73a6b6c36, type: 3}
+      propertyPath: m_PixelPerfect
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 4459864851551516593, guid: 6bacecc4f3df9584198879c73a6b6c36, type: 3}
+      propertyPath: m_SortingOrder
+      value: 32767
+      objectReference: {fileID: 0}
+    - target: {fileID: 4459864851551516593, guid: 6bacecc4f3df9584198879c73a6b6c36, type: 3}
+      propertyPath: m_VertexColorAlwaysGammaSpace
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 4459864851551516593, guid: 6bacecc4f3df9584198879c73a6b6c36, type: 3}
       propertyPath: m_AdditionalShaderChannelsFlag
       value: 25
       objectReference: {fileID: 0}
@@ -25191,9 +25199,6 @@ PrefabInstance:
     - targetCorrespondingSourceObject: {fileID: 4459864850019384738, guid: 6bacecc4f3df9584198879c73a6b6c36, type: 3}
       insertIndex: -1
       addedObject: {fileID: 1250306578}
-    - targetCorrespondingSourceObject: {fileID: 4459864851551516607, guid: 6bacecc4f3df9584198879c73a6b6c36, type: 3}
-      insertIndex: -1
-      addedObject: {fileID: 1743059808}
     - targetCorrespondingSourceObject: {fileID: 4459864850190357392, guid: 6bacecc4f3df9584198879c73a6b6c36, type: 3}
       insertIndex: -1
       addedObject: {fileID: 2116119494}

@@ -21,6 +21,10 @@ public class ItemSlot {
         return GetItem() != null;
     }
 
+    public bool Equal(int slotID) {
+        return _slotID.Equals(slotID);
+    }
+
     public bool AddItemToSlot(PlayerItem item) {
         PlayerHUD.OnItemPickup.Invoke(SlotID, item.Item.ItemIcon);
 
@@ -57,5 +61,9 @@ public class ItemSlot {
 
         PlayerHUD.OnItemAdded.Invoke(SlotID, _stack);
         return true;
+    }
+
+    public bool Equals(ItemSlot other) {
+        throw new NotImplementedException();
     }
 }

@@ -166,8 +166,6 @@ public class PlayerHUD : MonoBehaviour {
     /// <summary>
     /// replace the generic ItemSlot's icon
     /// </summary>
-    /// <param name="slotID"></param>
-    /// <param name="itemIcon"></param>
     public void UpdateSlotBarItemIcon(int slotID, Sprite itemIcon) {
         _slotBarItemIcons[slotID].sprite = itemIcon;
     }

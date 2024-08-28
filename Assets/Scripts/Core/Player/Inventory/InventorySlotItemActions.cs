@@ -26,7 +26,7 @@ public class InventorySlotItemActions : MonoBehaviour, IPointerEnterHandler, IPo
 
         if (!_isSlotBarSlot) {
             _useItemButton.onClick.AddListener(() => {
-                if ((_itemSlot.Stack - 1) <= 0) {
+                if (_itemSlot.Stack <= 1) {
                     PlayerInventory.Instance.UseItemFromSlot(_itemSlot);
                     _itemTooltipGO.SetActive(false);
                     _itemActionsPannel.SetActive(false);
@@ -48,7 +48,7 @@ public class InventorySlotItemActions : MonoBehaviour, IPointerEnterHandler, IPo
     }
 
     public void ShowOrHidePannel() {
-        if (_itemSlot.HasItem()) {
+        if (!_isSlotBarSlot && _itemSlot.HasItem()) {
             _itemActionsPannel.SetActive(!_itemActionsPannel.activeSelf);
         }
     }
@@ -64,7 +64,9 @@ public class InventorySlotItemActions : MonoBehaviour, IPointerEnterHandler, IPo
 
     public void OnPointerExit(PointerEventData eventData) {
         _itemTooltipGO.SetActive(false);
-        _itemActionsPannel.SetActive(false);
+
+        if (!_isSlotBarSlot)
+            _itemActionsPannel.SetActive(false);
     }
 
     public void OnBeginDrag(PointerEventData eventData) {
@@ -85,7 +87,10 @@ public class InventorySlotItemActions : MonoBehaviour, IPointerEnterHandler, IPo
 
         // disable tooltip and stack count
         this._itemTooltip.transform.parent.gameObject.SetActive(false);
-        this.transform.GetChild(0).Find("Inventory Slot Item Stack").gameObject.SetActive(false);
+        if (_isSlotBarSlot)
+            this.transform.Find("Slot Item Stack").gameObject.SetActive(false);
+        else
+            this.transform.GetChild(0).Find("Inventory Slot Item Stack").gameObject.SetActive(false);
     }
 
     public void OnDrag(PointerEventData eventData) {
@@ -96,8 +101,13 @@ public class InventorySlotItemActions : MonoBehaviour, IPointerEnterHandler, IPo
     }
 
     public void OnEndDrag(PointerEventData eventData) {
-        if (!eventData.pointerCurrentRaycast.isValid || !eventData.pointerCurrentRaycast.gameObject.name.Contains("Inventory Slot")) {
-            this.transform.GetChild(0).Find("Inventory Slot Item Stack").gameObject.SetActive(true);
+        if (!eventData.pointerCurrentRaycast.isValid || !eventData.pointerCurrentRaycast.gameObject.name.Contains("Slot")) {
+            if (_isSlotBarSlot) {
+                transform.Find("Slot Item Stack").gameObject.SetActive(true);
+            }
+            else {
+                this.transform.GetChild(0).Find("Inventory Slot Item Stack").gameObject.SetActive(true);
+            }
 
             Destroy(transform.root.Find("temp item icon").gameObject);
 
@@ -124,33 +134,35 @@ public class InventorySlotItemActions : MonoBehaviour, IPointerEnterHandler, IPo
 
                     Destroy(transform.root.Find("temp item icon").gameObject);
 
-                    return;
                 } else {
                     SwapSlot(inventorySlot, false);
-                    return;
                 }
             } else if (hasInventorySlotItem && !inventorySlot.GetItem().CanBeStacked) {
                 SwapSlot(inventorySlot, false);
-                return;
             } else {
                 if (!hasInventorySlotItem) {
                     SwapSlot(inventorySlot, true);
-                    return;
                 }
             }
+
         } else if (inventorySlot == null) {
             if (PlayerInventory.Instance.SlotBarsSlotsCollection.TryGetValue(eventData.pointerCurrentRaycast.gameObject.transform.parent.gameObject, out var slotBarSlot)) {
-                if (slotBarSlot == this._itemSlot) {
-                    this.transform.GetChild(0).Find("Inventory Slot Item Stack").gameObject.SetActive(true);
+                bool hasSlotItem = slotBarSlot.HasItem();
+
+                if (hasSlotItem && _itemSlot.Equal(slotBarSlot.SlotID)) {
+                    transform.Find("Slot Item Stack").gameObject.SetActive(false);
 
                     Destroy(transform.root.Find("temp item icon").gameObject);
                     return;
                 }
 
+
+                print($"detected slotbar slot {slotBarSlot.SlotID}");
                 PlayerInventory.Instance.TransferInventorySlotToSlotBar(ref this._itemSlot, slotBarSlot.SlotID);
 
+                transform.Find("Slot Item Stack").gameObject.SetActive(true);
 
-                return;
+                Destroy(transform.root.Find("temp item icon").gameObject);
             }
         }
     }
