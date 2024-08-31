@@ -15,6 +15,13 @@ public class PlayerInventory : MonoBehaviour, IPlayerInventory {
     public Dictionary<GameObject, ItemSlot> InventorySlotsCollection = new();
     public Dictionary<GameObject, ItemSlot> SlotBarsSlotsCollection = new();
 
+    public delegate void WhenInventoryOpen();
+    public static WhenInventoryOpen OnInventoryOpen;
+
+    public delegate void WhenInventoryClose();
+    public static WhenInventoryClose OnInventoryClose;
+
+
     public static PlayerInventory Instance {
         get; set;
     }
@@ -25,6 +32,10 @@ public class PlayerInventory : MonoBehaviour, IPlayerInventory {
     }
 
     private void Start() {
+        OnInventoryClose += () => print($"{nameof(OnInventoryClose)} OK");
+
+        OnInventoryOpen += () => print($"{nameof(OnInventoryOpen)} OK");
+
         for (int i = 0; i < InventorySlotsGameObjects.Length; i++) {
             InventorySlotsCollection.Add(InventorySlotsGameObjects[i], InventorySlots[i]);
         }

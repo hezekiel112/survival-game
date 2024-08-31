@@ -137,7 +137,13 @@ public class PlayerHUD : MonoBehaviour {
 
     public void InventoryOpenClose() {
         _inventoryObject.SetActive(!_inventoryObject.activeSelf);
-        Cursor.visible = _inventoryObject.activeSelf ? true : false;
+        Cursor.visible = _inventoryObject.activeSelf;
+
+        if (_inventoryObject.activeSelf) {
+            PlayerInventory.OnInventoryOpen?.Invoke();
+        } else {
+            PlayerInventory.OnInventoryClose?.Invoke();
+        }
     }
 
     public void UpdateSlotBarItemStackSize(int slotID, int stackSize) {
