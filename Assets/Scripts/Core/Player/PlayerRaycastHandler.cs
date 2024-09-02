@@ -38,8 +38,6 @@ public class PlayerRaycastHandler : MonoBehaviour {
                 return false;
             };
             Array.Clear(hits, 0, hits.Length);
-
-            return;
         }
     }
 
