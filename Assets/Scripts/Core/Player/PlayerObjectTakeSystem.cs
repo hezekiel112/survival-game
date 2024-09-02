@@ -73,8 +73,6 @@ public class PlayerObjectTakeSystem : MonoBehaviour {
                     if ((slot.Stack + slot.GetItem().DefaultStackSize) <= slot.GetItem().MaxStackSize) {
                         slot.AddItemToSlot(item);
 
-                        int stackToAdd = item.Item.DefaultStackSize - slot.Stack;
-
                         StartCoroutine(PlayerHUD.OnDisplayEnter(pickedUpItem: item, count: item.Item.DefaultStackSize));
                     }
 
